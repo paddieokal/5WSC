@@ -357,7 +357,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             // demographic stacked bar chart
             var demoDim = ndx.dimension(function (d) {
-                return "";
+                return "Age/Gender";
             });
             var demoGroup = demoDim.group().reduce(
                 function (p, v) {
@@ -384,8 +384,8 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
             demoBarStack
                 .width(160)
-                .height(105)
-                .margins({ top: 5, right: 10, bottom: 5, left: 80 })
+                .height(110)
+                .margins({ top: 7, right: 10, bottom:20, left: 80 })
                 .dimension(demoDim)
                 .group(demoGroup, "Girls")
                 .valueAccessor(function (d) {
@@ -439,8 +439,8 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             ruralUrbanRow
                 .width(155)
-                .height(115)
-                .margins({ top: 5, right: 0, bottom: 5, left: 5 })
+                .height(110)
+                .margins({ top: 5, right: 0, bottom: 20, left: 5 })
                 .dimension(ruralUrbanDim)
                 .group(ruralUrbanGroup)
                 .ordinalColors(["#41b6c4"])
@@ -504,7 +504,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .ordinalColors(["#41b6c4"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key + ": " + d3.format(",.1f")(d.value)
+                    return d.key + ": " + d3.format(",")(d.value)
                 })
                 .controlsUseVisibility(true)
                 .gap(2)
@@ -574,11 +574,6 @@ d3.csv('data/dataset.csv', function (error, data) {
                 //.centerBar(true)
                 .renderHorizontalGridLines(true)
                 .controlsUseVisibility(true)
-                // .x(d3.time.scale().domain(yearDim))
-                // .x(d3.scaleTime().domain([minDate, maxDate]))
-                // .x(d3.time.scale().domain(d3.extent(data, function(d) { 
-                //     return d.EndMonth; 
-                // })))
                 .x(d3.scaleTime().domain(rangeDate(data)))
                 .xUnits(d3.timeMonths)
                 .round(d3.timeMonth)
@@ -601,7 +596,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 chart.selectAll("g.axis.x")
                     .attr('transform', "translate(45,90)");
                 chart.selectAll("g.chart-body")
-                    .attr('transform', "translate(10,10)");
+                    .attr('transform', "translate(7,10)");
             });
 
             monthBar.filterPrinter(function (filters) {
@@ -734,9 +729,9 @@ d3.csv('data/dataset.csv', function (error, data) {
             benefBarStack
                 .width(200)
                 .height(110)
-                .margins({ top: 5, right: 30, bottom: 21, left: 40 })
+                .margins({ top: 5, right: 30, bottom: 20, left: 40 })
                 .dimension(benefDim)
-                .group(benefGroup, "REACHED")
+                .group(benefGroup, "INDIVIDUALS")
                 .valueAccessor(function (d) {
                     return d.value.INDIVIDUALS;
                 })
@@ -745,7 +740,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 //     return r < 0 ? 0 : r;
                 // })
                 .title("INDIVIDUALS", function (d) {
-                    return d.key + " Individuals: " + d3.format(",")(d.value.INDIVIDUALS);
+                    return d.key + ": " + d3.format(",")(d.value.INDIVIDUALS);
                 })
                 // .title("TARGETED", function (d) {
                 //     return d.key + " Targeted: " + d3.format(",")(arr_max_val(d.value.TARGET));

@@ -240,7 +240,7 @@ footer {
 #dc-modality-row svg g g.axis { display: none; }
 
 /* hide x axis for project rural/urban row chart */
-#dc-rural-urban-row svg g g.axis { display: none; }
+/* #dc-rural-urban-row svg g g.axis { display: none; } */
 
 /* thicker border line for district map */
 #dc-district-map g.admin2Name path {
