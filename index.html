@@ -48,59 +48,8 @@
             <div class="col-sm">
 
             </div>
-        </div>
-        <!-- /sub-header -->
-
-        <section class="home page">
-            <div class="row">
-                <div class="col-sm-2">
-                    <!-- <div id="dc-year-cbox"> -->
-                    <!-- <div id="dc-year-select"> -->
-                    <h6>YEAR</h6>
-                    <!-- <div class="btn-group btn-group-sm" role="group">
-                        <button id="button1" class="btn btn-light btn-sm" onclick="button1()" disabled title="2 years ago">&lt;</button>
-                        <button id="button2" class="btn btn-light btn-sm" onclick="button2()" title="Last year">2018</button>
-                        <button id="button3" class="btn btn-light btn-sm active" onclick="button3()" title="This year">2019</button>
-                    </div> -->
-                    <div id="select-year">
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="year" value="2018">2018
-                            </label>
-                        </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="year" value="2019"
-                                    checked="true">2019
-                            </label>
-                        </div>
-
-                    </div>
-                    <!-- </div> -->
-                </div>
-
-                <div class="col-sm-3">
-
-                </div>
-
-                <div class="col-sm-1">
-
-                </div>
-
-                <div class="col-sm-1">
-
-                </div>
-
-                <div class="col-sm-4">
-                    <h6>NOTE</h6>
-                    <span class="high-red">Use Google Chrome or Mozilla Firefox as Internet Explorer has a poor
-                        rendering performance.</span><br>
-                    <!-- Go to <a class="nav-link" data-page="about" href="" style="display:inline;padding:0;">FAQs</a> to
-                    get started and view frequently asked questions with animated illustrations. -->
-                </div>
-
-                <div class="col-sm-1">
-                    <h6>&nbsp;</h6>
+            <div class="col-sm-1">
+                    <!-- <h6>&nbsp;</h6> -->
 
                     <a class="btn btn-link btn-sm" href="javascript:dc.filterAll(); dc.redrawAll();"
                         style="float: right;">
@@ -109,9 +58,10 @@
                     </a>
 
                 </div>
-            </div>
-            <!-- /form fields -->
+        </div>
+        <!-- /sub-header -->
 
+        <section class="home page">
             <div class="row">
                 <div class="col-sm-2">
                     <h6>INDIVIDUALS</h6>
@@ -145,21 +95,22 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div id="dc-rural-urban-row">
+                    <div id="dc-status-row">
                         <h6>
-                            RURAL/URBAN
-                            <a href="javascript:ruralUrbanRow.filterAll();dc.redrawAll()" class="reset"
+                            STATUS
+                            <a href="javascript:statusRow.filterAll();dc.redrawAll()" class="reset"
                                 style="visibility: hidden">
                                 Clear
                             </a>
                         </h6>
                     </div>
+
                 </div>
             </div>
             <!-- /key figures and row charts -->
 
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div id="dc-month-bar">
                         <h6>
                             MONTHLY
@@ -172,7 +123,18 @@
                         </h6>
                     </div>
                 </div>
-
+                <div class="col-sm-3">
+                    <div id="dc-benef-bar-stack" style="float: right;">
+                    <!-- <div id="dc-benef-bar-stack"> -->
+                        <h6>
+                            BENEFICIARY TYPE
+                            <a href="javascript:benefBarStack.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
                 <div class="col-sm-2">
                     <div id="dc-demo-bar-stack">
                         <h6>
@@ -184,27 +146,18 @@
                         </h6>
                     </div>
                 </div>
+
                 <div class="col-sm-2">
-                    <div id="dc-benef-bar-stack" style="float: right;">
+                    <div id="dc-rural-urban-row">
                         <h6>
-                            BENEFICIARY TYPE
-                            <a href="javascript:benefBarStack.filterAll();dc.redrawAll()" class="reset"
+                            RURAL/URBAN
+                            <a href="javascript:ruralUrbanRow.filterAll();dc.redrawAll()" class="reset"
                                 style="visibility: hidden">
                                 Clear
                             </a>
                         </h6>
                     </div>
-                </div>
-                <div class="col-sm-2">
-                    <div id="dc-crisis-row">
-                        <h6>
-                            CRISIS
-                            <a href="javascript:crisisRow.filterAll();dc.redrawAll()" class="reset"
-                                style="visibility: hidden">
-                                Clear
-                            </a>
-                        </h6>
-                    </div>
+
                 </div>
                 <div class="col-sm-2">
                     <div id="dc-donor-select">
@@ -244,10 +197,10 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div id="dc-status-row">
+                    <div id="dc-crisis-row">
                         <h6>
-                            STATUS
-                            <a href="javascript:statusRow.filterAll();dc.redrawAll()" class="reset"
+                            CRISIS
+                            <a href="javascript:crisisRow.filterAll();dc.redrawAll()" class="reset"
                                 style="visibility: hidden">
                                 Clear
                             </a>
@@ -279,7 +232,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <div id="dc-region-map">
                         <h6>
                             REGION MAP
@@ -290,7 +243,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <div id="dc-district-map">
                         <h6>
                             DISTRICT MAP
@@ -301,7 +254,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <div id="dc-location-select">
                         <h6>
                             SPECIFIC LOCATION
@@ -316,41 +269,38 @@
 
             </div>
             <!-- /heat map -->
-    
 
 
 
-    <!-- <input type="text" class="text-filter-input"> -->
-    </section>
-    <!-- /home -->
 
-    <script type="text/javascript" src="js/promise-polyfill.js"></script>
-    <script type="text/javascript" src="js/jquery.v3.3.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.v4.0.0.min.js"></script>
-    <!-- D3 v5 doesn't seem to well with dc v3.* -->
-    <script type="text/javascript" src="js/d3.v4.13.0.js"></script>
-    <script type="text/javascript" src="js/crossfilter.v1.4.6.js"></script>
-    <script type="text/javascript" src="js/dc.v3.0.6.js"></script>
-    <script type="text/javascript" src="js/colorbrewer.js"></script>
-    <script type="text/javascript" src="js/spin.js"></script>
-    <!-- <script type="text/javascript" src="dc-tableview-bs.js"></script> -->
-    <script type="text/javascript" src="main.js"></script>
+            <!-- <input type="text" class="text-filter-input"> -->
+        </section>
+        <!-- /home -->
 
-    <footer>
-        <div class="row">
-            <div class="col-sm-2 fade">
-                <strong>Source:</strong>&nbsp;UNHCR
+
+        <script type="text/javascript" src="js/jquery.v3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.v4.0.0.min.js"></script>
+        <!-- D3 v5 doesn't seem to well with dc v3.* -->
+        <script type="text/javascript" src="js/d3.v4.13.0.js"></script>
+        <script type="text/javascript" src="js/crossfilter.v1.4.6.js"></script>
+        <script type="text/javascript" src="js/dc.v3.0.6.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+
+        <footer>
+            <div class="row">
+                <div class="col-sm-2 fade">
+                    <strong>Source:</strong>&nbsp;UNHCR
+                </div>
+                <div class="col-sm-2 fade">
+                    <strong>Author:</strong>&nbsp;UNHCR Somalia
+                </div>
+                <div class="col-sm-8 fade">
+                    <strong>Feedback:</strong>&nbsp;sommopmn@unhcr.org
+                </div>
             </div>
-            <div class="col-sm-2 fade">
-                <strong>Author:</strong>&nbsp;UNHCR Somalia
-            </div>
-            <div class="col-sm-8 fade">
-                <strong>Feedback:</strong>&nbsp;sommopmn@unhcr.org
-            </div>
-        </div>
-    </footer>
+        </footer>
 
-    <!-- /footer -->
+        <!-- /footer -->
     </div>
     <!-- /container -->
 

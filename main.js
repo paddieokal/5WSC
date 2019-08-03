@@ -159,9 +159,10 @@ function arr_max_val(t) {
 }
 // returns extents (min and max values) of CSV 'Year' field
 function rangeDate(data) {
-    var yr = d3.max(data, function (d) {
-        return +d.Year;
-    });
+    // var yr = d3.max(data, function (d) {
+    //     return +d.EndYear;
+    // });
+    var yr = 2019;
     var rng = [new Date(yr, 0, 1), new Date(yr + 1, 0, 31)];
     return rng;
 }
@@ -364,7 +365,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                     p.girls += +v.Girls;
                     p.women += +v.Women;
                     p.men += +v.Men;
-                    p.reach += +v.Reach;
+                    p.individuals += +v.Individuals;
 
                     return p;
                 },
@@ -373,43 +374,43 @@ d3.csv('data/dataset.csv', function (error, data) {
                     p.girls -= +v.Girls;
                     p.women -= +v.Women;
                     p.men -= +v.Men;
-                    p.reach -= +v.Reach;
+                    p.individuals -= +v.Individuals;
 
                     return p;
                 },
                 function () {
-                    return { boys: 0, girls: 0, women: 0, men: 0, reach: 0 };
+                    return { boys: 0, girls: 0, women: 0, men: 0, individuals: 0 };
                 }
             );
             demoBarStack
-                .width(100)
-                .height(110)
-                .margins({ top: 5, right: 10, bottom: 20, left: 35 })
+                .width(160)
+                .height(105)
+                .margins({ top: 5, right: 10, bottom: 5, left: 80 })
                 .dimension(demoDim)
                 .group(demoGroup, "Girls")
                 .valueAccessor(function (d) {
-                    return d.value.girls / d.value.reach;
+                    return d.value.girls / d.value.individuals;
                 })
                 .stack(demoGroup, "Boys", function (d) {
-                    return d.value.boys / d.value.reach;
+                    return d.value.boys / d.value.individuals;
                 })
                 .stack(demoGroup, "Women", function (d) {
-                    return d.value.women / d.value.reach;
+                    return d.value.women / d.value.individuals;
                 })
                 .stack(demoGroup, "Men", function (d) {
-                    return d.value.men / d.value.reach;
+                    return d.value.men / d.value.individuals;
                 })
                 .title("Men", function (d) {
-                    return "Men: " + d3.format(".0%")(d.value.men / d.value.reach);
+                    return "Men: " + d3.format(".0%")(d.value.men / d.value.individuals);
                 })
                 .title("Women", function (d) {
-                    return "Women: " + d3.format(".0%")(d.value.women / d.value.reach);
+                    return "Women: " + d3.format(".0%")(d.value.women / d.value.individuals);
                 })
                 .title("Boys", function (d) {
-                    return "Boys: " + d3.format(".0%")(d.value.boys / d.value.reach);
+                    return "Boys: " + d3.format(".0%")(d.value.boys / d.value.individuals);
                 })
                 .title("Girls", function (d) {
-                    return "Girls: " + d3.format(".0%")(d.value.girls / d.value.reach);
+                    return "Girls: " + d3.format(".0%")(d.value.girls / d.value.individuals);
                 })
                 .controlsUseVisibility(true)
                 .gap(20)
@@ -437,9 +438,9 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             ruralUrbanRow
-                .width(95)
-                .height(110)
-                .margins({ top: 5, right: 10, bottom: 20, left: 5 })
+                .width(155)
+                .height(115)
+                .margins({ top: 5, right: 0, bottom: 5, left: 5 })
                 .dimension(ruralUrbanDim)
                 .group(ruralUrbanGroup)
                 .ordinalColors(["#41b6c4"])
@@ -467,8 +468,8 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             crisisRow
-                .width(95)
-                .height(110)
+                .width(160)
+                .height(220)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(crisisDim)
                 .group(crisisGroup)
@@ -495,7 +496,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 return d.Individuals;
             });
             programRow
-                .width(220)
+                .width(210)
                 .height(220)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(programDim)
@@ -524,7 +525,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             programBenefHeat
                 .width(345)
                 .height(225)
-                .margins({ top: 0, right: 20, bottom: 20, left: 190 })
+                .margins({ top: 5, right: 30, bottom: 20, left: 180 })
                 .dimension(programBenefDim)
                 .group(programBenefGroup)
                 .keyAccessor(function (d) { return d.key[0]; })
@@ -559,9 +560,9 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             monthBar
-                .width(270)
+                .width(340)
                 .height(110)
-                .margins({ top: 10, right: -13, bottom: 20, left: 28 })
+                .margins({ top: 10, right: -13, bottom: 20, left: 30 })
                 .dimension(monthDim)
                 .group(monthGroup)
                 .valueAccessor(function (d) {
@@ -598,7 +599,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             monthBar.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x")
-                    .attr('transform', "translate(37,90)");
+                    .attr('transform', "translate(45,90)");
                 chart.selectAll("g.chart-body")
                     .attr('transform', "translate(10,10)");
             });
@@ -711,7 +712,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                     // } else {
                     //     p.TARGET[v["RightsDistrict"]] = [v["Target"]];
                     // }
-                    p.REACH += +v.Reach;
+                    p.INDIVIDUALS += +v.Individuals;
                     return p;
                 },
                 function (p, v) {
@@ -719,32 +720,32 @@ d3.csv('data/dataset.csv', function (error, data) {
                     // if (index > -1) {
                     //     p.TARGET[v["RightsDistrict"]].splice(index, 1);
                     // }
-                    p.REACH -= +v.Reach;
+                    p.INDIVIDUALS -= +v.Individuals;
                     return p;
                 },
                 function () {
                     return {
                         // TARGET: {},
-                        REACH: 0
+                        INDIVIDUALS: 0
                     };
                 }
             );
 
             benefBarStack
-                .width(160)
+                .width(200)
                 .height(110)
-                .margins({ top: 5, right: 20, bottom: 21, left: 50 })
+                .margins({ top: 5, right: 30, bottom: 21, left: 40 })
                 .dimension(benefDim)
                 .group(benefGroup, "REACHED")
                 .valueAccessor(function (d) {
-                    return d.value.REACH;
+                    return d.value.INDIVIDUALS;
                 })
                 // .stack(benefGroup, "TARGETED", function (d) {
                 //     var r = arr_max_val(d.value.TARGET) - d.value.REACH;
                 //     return r < 0 ? 0 : r;
                 // })
-                .title("REACHED", function (d) {
-                    return d.key + " Reached: " + d3.format(",")(d.value.REACH);
+                .title("INDIVIDUALS", function (d) {
+                    return d.key + " Individuals: " + d3.format(",")(d.value.INDIVIDUALS);
                 })
                 // .title("TARGETED", function (d) {
                 //     return d.key + " Targeted: " + d3.format(",")(arr_max_val(d.value.TARGET));
@@ -772,15 +773,15 @@ d3.csv('data/dataset.csv', function (error, data) {
                 return d.Individuals;
             });
             statusRow
-                .width(220)
-                .height(220)
-                .margins({ top: 5, right: 10, bottom: 20, left: 5 })
+                .width(155)
+                .height(60)
+                .margins({ top: 5, right: 0, bottom: 0, left: 5 })
                 .dimension(statusDim)
                 .group(statusGroup)
                 .ordinalColors(["#41b6c4"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key + ": " + d3.format(",.1f")(d.value)
+                    return d.key + ": " + d3.format(",.0f")(d.value)
                 })
                 .controlsUseVisibility(true)
                 .gap(2)
@@ -796,41 +797,21 @@ d3.csv('data/dataset.csv', function (error, data) {
                 return d.Modality;
             });
 
-            var modalityGroup = modalityDim.group().reduce(
-                function (p, v) { //add
-                    if (p[v.Modality]) {
-                        p[v.Modality]++;
-                    } else {
-                        p[v.Modality] = 1;
-                    }
-                    return p;
-                },
-                function (p, v) { //remove
-                    p[v.Modality]--;
-                    if (p[v.Modality] === 0) {
-                        delete p[v.Modality];
-                    }
-                    return p;
-                },
-                function () { //init
-                    //initial p - only one since using groupAll
-                    return {};
-                }
-            );
+            var modalityGroup = modalityDim.group().reduceSum(
+                function (d) {
+                    return d.Individuals;
+                });
 
             modalityRow
-                .width(65)
-                .height(50)
-                .margins({ top: 0, right: 0, bottom: 0, left: 5 })
+                .width(155)
+                .height(40)
+                .margins({ top: 5, right: 0, bottom: 0, left: 5 })
                 .dimension(modalityDim)
                 .group(modalityGroup)
-                .valueAccessor(function (d) {
-                    return Object.keys(d.value).length;
-                })
                 .ordinalColors(["#41b6c4"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key + ": " + Object.keys(d.value).length;
+                    return d.key + ": " + d3.format(",.0f")(d.value);
                 })
                 .controlsUseVisibility(true)
                 .gap(2)
