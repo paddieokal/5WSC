@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="expires" content="thu, 14 sep 2017 14:30:00 GMT"> -->
+    <!-- <meta http-equiv="Cache-Control" content="no-cache" />      -->
+    <title>SOMALIA - UNHCR 5W (Who is doing What Where When for Whom)</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dc.v3.0.6.css">
+    <link rel="stylesheet" href="css/spin.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <div class="row">
+
+                <div class="col-sm-auto align-self-start right-padding">
+                    <h5 class="normal">SOMALIA</h5>
+                    <h5 class="float-left">SHELTER CLUSTER - 5W</h5>
+                </div>
+
+                <div class="col-sm">
+
+                </div>
+                <div class="col-sm-auto align-self-start back">
+                    <!-- <a name="top"></a> -->
+
+                    <img src="img/UNHCR-visibility-horizontal-Blue-PMS-v2015.png" height="40px" alt="UNHCR">
+
+                </div>
+
+            </div>
+        </header>
+        <!-- /header -->
+
+        <hr style="margin-bottom: .0rem;">
+
+        <div class="row sub-header">
+            <div class="col-sm-2">
+                <span id="last-updated"></h6>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+        <!-- /sub-header -->
+
+        <section class="home page">
+            <div class="row">
+                <div class="col-sm-2">
+                    <!-- <div id="dc-year-cbox"> -->
+                    <!-- <div id="dc-year-select"> -->
+                    <h6>YEAR</h6>
+                    <!-- <div class="btn-group btn-group-sm" role="group">
+                        <button id="button1" class="btn btn-light btn-sm" onclick="button1()" disabled title="2 years ago">&lt;</button>
+                        <button id="button2" class="btn btn-light btn-sm" onclick="button2()" title="Last year">2018</button>
+                        <button id="button3" class="btn btn-light btn-sm active" onclick="button3()" title="This year">2019</button>
+                    </div> -->
+                    <div id="select-year">
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="year" value="2018">2018
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="year" value="2019"
+                                    checked="true">2019
+                            </label>
+                        </div>
+
+                    </div>
+                    <!-- </div> -->
+                </div>
+
+                <div class="col-sm-3">
+
+                </div>
+
+                <div class="col-sm-1">
+
+                </div>
+
+                <div class="col-sm-1">
+
+                </div>
+
+                <div class="col-sm-4">
+                    <h6>NOTE</h6>
+                    <span class="high-red">Use Google Chrome or Mozilla Firefox as Internet Explorer has a poor
+                        rendering performance.</span><br>
+                    <!-- Go to <a class="nav-link" data-page="about" href="" style="display:inline;padding:0;">FAQs</a> to
+                    get started and view frequently asked questions with animated illustrations. -->
+                </div>
+
+                <div class="col-sm-1">
+                    <h6>&nbsp;</h6>
+
+                    <a class="btn btn-link btn-sm" href="javascript:dc.filterAll(); dc.redrawAll();"
+                        style="float: right;">
+                        <!-- <a href="javascript:dc.filterAll(); dc.renderAll();"> -->
+                        Clear All
+                    </a>
+
+                </div>
+            </div>
+            <!-- /form fields -->
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <h6>INDIVIDUALS</h6>
+                    <div id="dc-individual-nd" class="nd">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <h6>HOUSEHOLDS</h6>
+                    <div id="dc-household-nd" class="nd">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <h6>TARGET</h6>
+                    <div id="dc-target-nd" class="nd">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <h6>PARTNERS</h6>
+                    <div id="dc-partner-nd" class="nd">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-modality-row">
+                        <h6>
+                            MODALITY
+                            <a href="javascript:modalityRow.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-rural-urban-row">
+                        <h6>
+                            RURAL/URBAN
+                            <a href="javascript:ruralUrbanRow.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <!-- /key figures and row charts -->
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div id="dc-month-bar">
+                        <h6>
+                            MONTHLY
+                            <span class="filter"></span>
+                            <a href="javascript:monthBar.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden"
+                                title="If in Google Chrome browser, click middle mouse button to Clear.">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div id="dc-demo-bar-stack">
+                        <h6>
+                            DEMOGRAPHIC
+                            <!-- <a href="javascript:demoBarStack.filterAll();dc.redrawAll()" 
+                                            class="reset" style="visibility: hidden">
+                                           Clear
+                                     </a>  -->
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-benef-bar-stack" style="float: right;">
+                        <h6>
+                            BENEFICIARY TYPE
+                            <a href="javascript:benefBarStack.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-crisis-row">
+                        <h6>
+                            CRISIS
+                            <a href="javascript:crisisRow.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-donor-select">
+                        <h6>
+                            DONOR
+                            <a href="javascript:donorSelect.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <!-- /bar charts -->
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <div id="dc-program-row">
+                        <h6>
+                            PROGRAMME
+                            <a href="javascript:programRow.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div id="dc-program-benef-heat" style="float: right;">
+                        <h6>
+                            PROGRAMME VS BENEFICIARY TYPE
+                            <a href="javascript:programBenefHeat.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-status-row">
+                        <h6>
+                            STATUS
+                            <a href="javascript:statusRow.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-partner-select">
+                        <h6>
+                            PARTNER
+                            <a href="javascript:partnerSelect.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-organ-select">
+                        <h6>
+                            ORGANISATION
+                            <a href="javascript:organSelect.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    <div id="dc-region-map">
+                        <h6>
+                            REGION MAP
+                            <a href="javascript:regionMap.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div id="dc-district-map">
+                        <h6>
+                            DISTRICT MAP
+                            <a href="javascript:districtMap.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-location-select">
+                        <h6>
+                            SPECIFIC LOCATION
+                            <a href="javascript:locationSelect.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /heat map -->
+    
+
+
+
+    <!-- <input type="text" class="text-filter-input"> -->
+    </section>
+    <!-- /home -->
+
+    <script type="text/javascript" src="js/promise-polyfill.js"></script>
+    <script type="text/javascript" src="js/jquery.v3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.v4.0.0.min.js"></script>
+    <!-- D3 v5 doesn't seem to well with dc v3.* -->
+    <script type="text/javascript" src="js/d3.v4.13.0.js"></script>
+    <script type="text/javascript" src="js/crossfilter.v1.4.6.js"></script>
+    <script type="text/javascript" src="js/dc.v3.0.6.js"></script>
+    <script type="text/javascript" src="js/colorbrewer.js"></script>
+    <script type="text/javascript" src="js/spin.js"></script>
+    <!-- <script type="text/javascript" src="dc-tableview-bs.js"></script> -->
+    <script type="text/javascript" src="main.js"></script>
+
+    <footer>
+        <div class="row">
+            <div class="col-sm-2 fade">
+                <strong>Source:</strong>&nbsp;UNHCR
+            </div>
+            <div class="col-sm-2 fade">
+                <strong>Author:</strong>&nbsp;UNHCR Somalia
+            </div>
+            <div class="col-sm-8 fade">
+                <strong>Feedback:</strong>&nbsp;sommopmn@unhcr.org
+            </div>
+        </div>
+    </footer>
+
+    <!-- /footer -->
+    </div>
+    <!-- /container -->
+
+
+</body>
+
+</html>
