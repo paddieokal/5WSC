@@ -211,22 +211,22 @@ footer {
 } */
 #dc-partner-select .dc-select-menu[multiple]{
     width: 160px;
-    height: 215px;
+    height: 195px;
     margin-top: 5px;
 }
 #dc-organ-select .dc-select-menu[multiple]{
     width: 160px;
-    height: 215px;
+    height: 195px;
     margin-top: 5px;
 }
 #dc-donor-select .dc-select-menu[multiple]{
     width: 160px;
-    height: 105px;
+    height: 115px;
     margin-top: 5px;
 }
 #dc-location-select .dc-select-menu[multiple]{
     width: 350px;
-    height: 325px;
+    height: 340px;
     margin-top: 5px;
 }
 

@@ -5,7 +5,8 @@ var
     partnerNd = dc.numberDisplay("#dc-partner-nd"),
     individualNd = dc.numberDisplay("#dc-individual-nd"),
     householdNd = dc.numberDisplay("#dc-household-nd"),
-    targetNd = dc.numberDisplay("#dc-target-nd"),
+    ipNd = dc.numberDisplay("#dc-ip-nd"),
+    donorNd = dc.numberDisplay("#dc-donor-nd"),
     partnerSelect = dc.selectMenu("#dc-partner-select"),
     organSelect = dc.selectMenu("#dc-organ-select"),
     donorSelect = dc.selectMenu("#dc-donor-select"),
@@ -32,10 +33,6 @@ var dayOffset = d3.timeDay.offset;
 var monthOffset = d3.timeMonth.offset;
 
 var ndx; // crossfilter global variable 
-
-var 
-    parseHash,
-    parsed;
 
 // URL filters utilities:
 // prototyped array function that returns an array with unique values
@@ -74,18 +71,21 @@ function chunk(array, size) {
 // Serializing filters values in URL
 function getFiltersValues() {
     var filters = [
-        { name: 'st', value: statusRow.filters() }, //1
-        { name: 'pt', value: modalityRow.filters() }, // 2
-        { name: 'pn', value: partnerSelect.filters() }, //3
-        { name: 'mo', value: resetFilter(monthBar.filters()) }, //7
-        { name: 'rs', value: crisisRow.filters() }, //8
-        { name: 'pl', value: benefBarStack.filters() }, //9
-        { name: 'rg', value: programRow.filters() }, //12
-        { name: 'rp', value: programBenefHeat.filters() }, //13
-        { name: 'do', value: donorSelect.filters() }, //14
-        { name: 'rm', value: regionMap.filters() }, //18
-        { name: 'dm', value: districtMap.filters() }, //19
-        { name: 'q', value: 'q' } // 29
+        { name: 'sta', value: statusRow.filters() }, //1
+        { name: 'mod', value: modalityRow.filters() }, // 2
+        { name: 'par', value: partnerSelect.filters() }, //3
+        { name: 'mon', value: resetFilter(monthBar.filters()) }, //4
+        { name: 'crs', value: crisisRow.filters() }, //5
+        { name: 'bnf', value: benefBarStack.filters() }, //6
+        { name: 'prg', value: programRow.filters() }, //7
+        { name: 'pbn', value: programBenefHeat.filters() }, //8
+        { name: 'don', value: donorSelect.filters() }, //9
+        { name: 'reg', value: regionMap.filters() }, //10
+        { name: 'dis', value: districtMap.filters() }, //11
+        { name: 'org', value: organSelect.filters() }, //12
+        { name: 'rub', value: ruralUrbanRow.filters() }, //13
+        { name: 'loc', value: locationSelect.filters() }, //14
+        { name: 'q', value: 'q' } // 15
 
     ];
     // console.log(filters[23]);
@@ -94,13 +94,19 @@ function getFiltersValues() {
 }
 
 function initFilters() {
+    // check url filter to determine which year's dataset to load
+    // regExp accepts special characters
+    var parseHash, parsed;
+
+    parseHash = /^#sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&q=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)$/;
+    parsed = parseHash.exec(decodeURIComponent(location.hash));
 
     function filter(chart, rank) {  // for instance chart = sector_chart and rank in URL hash = 1
 
         // sector chart
         if (parsed[rank] == "") {
             chart.filter(null);
-        } else if (rank == 7) {
+        } else if (rank == 4) {     // monthBar
             var filterValues = parsed[rank].split(",");
 
             var start = new Date(filterValues[0]);
@@ -113,7 +119,7 @@ function initFilters() {
             var filter = dc.filters.RangedFilter(start, dayOffset(end, 1));
             // var filter = dc.filters.RangedFilter(new Date(2017,2,1), new Date(2017,2,31));              
             chart.filter(filter);
-        } else if (rank == 13) {
+        } else if (rank == 8) {
             var filterValues = parsed[rank].split(",");
             var chunkValues = chunk(filterValues, 2);
 
@@ -134,15 +140,18 @@ function initFilters() {
         filter(statusRow, 1);
         filter(modalityRow, 2);
         filter(partnerSelect, 3);
-        filter(monthBar, 7);
-        filter(crisisRow, 8);
-        filter(benefBarStack, 9);
-        filter(programRow, 12);
-        filter(programBenefHeat, 13);
-        filter(donorSelect, 14);
-        filter(regionMap, 18);
-        filter(districtMap, 19);
-        // no q filter 
+        filter(monthBar, 4);
+        filter(crisisRow, 5);
+        filter(benefBarStack, 6);
+        filter(programRow, 7);
+        filter(programBenefHeat, 8);
+        filter(donorSelect, 9);
+        filter(regionMap, 10);
+        filter(districtMap, 11);
+        filter(organSelect, 12);
+        filter(ruralUrbanRow, 13);
+        filter(locationSelect, 14);
+        // no q filter // 15
     }
 
 }
@@ -159,10 +168,10 @@ function arr_max_val(t) {
 }
 // returns extents (min and max values) of CSV 'Year' field
 function rangeDate(data) {
-    // var yr = d3.max(data, function (d) {
-    //     return +d.EndYear;
-    // });
-    var yr = 2019;
+    var yr = d3.max(data, function (d) {
+        return +d.CurrentYear;
+    });
+    // var yr = 2019;
     var rng = [new Date(yr, 0, 1), new Date(yr + 1, 0, 31)];
     return rng;
 }
@@ -183,12 +192,6 @@ function load_button(file) {
 
 // loader settings
 var target = document.getElementById('dc-partner-nd');
-
-
-// check url filter to determine which year's dataset to load
-// regExp accepts special characters
-parseHash = /^#st=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pt=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&ig=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&iu=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mo=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&rs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pl=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&it=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&fc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rp=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&do=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&cc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&of=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&fn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rm=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dm=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&t1=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&t2=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&t3=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&ob=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&op=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pi=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&se=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&yr=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&tab=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&q=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)$/;
-parsed = parseHash.exec(decodeURIComponent(location.hash));
 
 // load csv data
 d3.csv('data/dataset.csv', function (error, data) {
@@ -211,6 +214,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 d.Month = d3.timeMonth(d.EndMonth);
             });
 
+            console.log(data);
+
             $("#last-updated").html("as at " + dateFormat(Date.now()));
 
             // attach data to crossfilter
@@ -221,6 +226,37 @@ d3.csv('data/dataset.csv', function (error, data) {
             // as object keys and # of partner occurences as object values
 
             var partnerNdGroup = ndx.groupAll().reduce(
+                function (p, v) { //add
+                    if (p[v.Organisation]) {
+                        p[v.Organisation]++;
+                    } else {
+                        p[v.Organisation] = 1;
+                    }
+                    return p;
+                },
+                function (p, v) { //remove
+                    p[v.Organisation]--;
+                    if (p[v.Organisation] === 0) {
+                        delete p[v.Organisation];
+                    }
+                    return p;
+                },
+                function () { //init
+                    //initial p - only one since using groupAll
+                    return {};
+                }
+            );
+
+            partnerNd
+                .group(partnerNdGroup)
+                .valueAccessor(function (d) {
+                    return Object.keys(d).length;
+                })
+                .formatNumber(d3.format(","));
+            partnerNd.render();
+            
+            // implementing partners
+            var ipNdGroup = ndx.groupAll().reduce(
                 function (p, v) { //add
                     if (p[v.IP]) {
                         p[v.IP]++;
@@ -242,26 +278,44 @@ d3.csv('data/dataset.csv', function (error, data) {
                 }
             );
 
-            partnerNd
-                .group(partnerNdGroup)
+            ipNd
+                .group(ipNdGroup)
                 .valueAccessor(function (d) {
                     return Object.keys(d).length;
                 })
                 .formatNumber(d3.format(","));
-            partnerNd.render();
+            ipNd.render();
 
-            var targetNdGroup = ndx.groupAll().reduceSum(function (d) {
-                return d.Target;
-            });
+            // donors
+            var donorNdGroup = ndx.groupAll().reduce(
+                function (p, v) { //add
+                    if (p[v.Donor]) {
+                        p[v.Donor]++;
+                    } else {
+                        p[v.Donor] = 1;
+                    }
+                    return p;
+                },
+                function (p, v) { //remove
+                    p[v.Donor]--;
+                    if (p[v.Donor] === 0) {
+                        delete p[v.Donor];
+                    }
+                    return p;
+                },
+                function () { //init
+                    //initial p - only one since using groupAll
+                    return {};
+                }
+            );
 
-            targetNd
-                .group(targetNdGroup)
+            donorNd
+                .group(donorNdGroup)
                 .valueAccessor(function (d) {
-                    return d;
+                    return Object.keys(d).length;
                 })
                 .formatNumber(d3.format(","));
-
-            targetNd.render();
+            donorNd.render();
 
             var individualNdGroup = ndx.groupAll().reduceSum(function (d) {
                 return d.Individuals;
@@ -384,7 +438,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
             demoBarStack
                 .width(160)
-                .height(110)
+                .height(120)
                 .margins({ top: 7, right: 10, bottom:20, left: 80 })
                 .dimension(demoDim)
                 .group(demoGroup, "Girls")
@@ -415,7 +469,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .controlsUseVisibility(true)
                 .gap(20)
                 .barPadding(0.001)
-                .ordinalColors(['#525252', '#969696', '#b7b7b7', '#dadada'])
+                .ordinalColors(['#8b2b2d','#a55a5b', '#bf898a', '#d8b8b9'])
                 //.ordinalColors(colorbrewer.GnBu[4])
                 .renderHorizontalGridLines(true)
                 .x(d3.scaleBand())
@@ -439,11 +493,11 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             ruralUrbanRow
                 .width(155)
-                .height(110)
+                .height(120)
                 .margins({ top: 5, right: 0, bottom: 20, left: 5 })
                 .dimension(ruralUrbanDim)
                 .group(ruralUrbanGroup)
-                .ordinalColors(["#41b6c4"])
+                .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
                     return d.key + ": " + d3.format(",")(d.value)
@@ -469,11 +523,11 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             crisisRow
                 .width(160)
-                .height(220)
+                .height(200)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(crisisDim)
                 .group(crisisGroup)
-                .ordinalColors(["#41b6c4"])
+                .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
                     return d.key + ": " + d3.format(",")(d.value)
@@ -497,11 +551,11 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             programRow
                 .width(210)
-                .height(220)
+                .height(200)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(programDim)
                 .group(programGroup)
-                .ordinalColors(["#41b6c4"])
+                .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
                     return d.key + ": " + d3.format(",")(d.value)
@@ -524,7 +578,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             programBenefHeat
                 .width(345)
-                .height(225)
+                .height(205)
                 .margins({ top: 5, right: 30, bottom: 20, left: 180 })
                 .dimension(programBenefDim)
                 .group(programBenefGroup)
@@ -536,8 +590,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                     return d.key[1] + "\n" +
                         d.key[0] + ": " + d3.format(",")(d.value);
                 })
-                // .colors(["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"])
-                .colors(["#ddfdff", "#b9e9ec", "#a3deeb", "#93d3e9", "#86c5e5", "#7bb9e1", "#71acdb", "#68a1d5", "#6094cd", "#5888c5", "#517dba", "#4a71b0", "#4466a3", "#3e5b96", "#385188"])
+                .colors(["#f2e7e7", "#e5d0d0", "#d8b8b9", "#cba1a1", "#bf898a", "#b27273", "#a55a5b", "#984244", "#8b2b2d", "#7f1416", "#721213", "#651011", "#580e0f", "#4c0c0d", "#3f0a0b"])
                 .colorCalculator(function (d) {
                     return d.value !== 0 ? programBenefHeat.colors()(d.value) : '#ccc';
                 })
@@ -560,9 +613,9 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             monthBar
-                .width(340)
-                .height(110)
-                .margins({ top: 10, right: -13, bottom: 20, left: 30 })
+                .width(320)
+                .height(120)
+                .margins({ top: 10, right: -17, bottom: 20, left: 30 })
                 .dimension(monthDim)
                 .group(monthGroup)
                 .valueAccessor(function (d) {
@@ -570,7 +623,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                     return Math.round(d.value * 100) / 100
                 })
                 .gap(1)
-                .ordinalColors(['#41b6c4'])
+                .ordinalColors(['#984244'])
                 //.centerBar(true)
                 .renderHorizontalGridLines(true)
                 .controlsUseVisibility(true)
@@ -594,9 +647,9 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             monthBar.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x")
-                    .attr('transform', "translate(45,90)");
+                    .attr('transform', "translate(43,100)");
                 chart.selectAll("g.chart-body")
-                    .attr('transform', "translate(7,10)");
+                    .attr('transform', "translate(8,10)");
             });
 
             monthBar.filterPrinter(function (filters) {
@@ -618,19 +671,19 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             regionMap
                 .width(280)
-                .height(330)
+                .height(350)
                 .transitionDuration(1000)
                 .dimension(regionDim)
                 .group(regionGroup)
                 .projection(d3.geoMercator()
-                    .scale(1340)
-                    .translate([-950, 285])
+                    .scale(1430)
+                    .translate([-1010, 305])
                 )
                 .keyAccessor(function (d) { return d.key; })
                 .valueAccessor(function (d) { return d.value; })
                 .controlsUseVisibility(true)
-                // .colors(['#ccc'].concat(colorbrewer.Blues[9])) 
-                .colors(d3.scaleQuantize().range(["#ddfdff", "#b9e9ec", "#a3deeb", "#93d3e9", "#86c5e5", "#7bb9e1", "#71acdb", "#68a1d5", "#6094cd", "#5888c5", "#517dba", "#4a71b0", "#4466a3", "#3e5b96", "#385188"]))
+                // .colors(['#ccc'].concat(colorbrewer.Blues[9]))
+                .colors(d3.scaleQuantize().range(["#f2e7e7", "#e5d0d0", "#d8b8b9", "#cba1a1", "#bf898a", "#b27273", "#a55a5b", "#984244", "#8b2b2d", "#7f1416", "#721213", "#651011", "#580e0f", "#4c0c0d", "#3f0a0b"]))
                 .colorDomain([0, regionGroup.top(1)[0].value / 2])
                 .colorCalculator(function (d) { return d ? regionMap.colors()(d) : '#ccc'; })
                 .overlayGeoJson(regionJson.features, "admin2Name", function (d) {
@@ -662,19 +715,19 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             districtMap
                 .width(280)
-                .height(330)
+                .height(350)
                 .transitionDuration(1000)
                 .dimension(districtDim)
                 .group(districtGroup)
                 .projection(d3.geoMercator()
-                    .scale(1340)
-                    .translate([-950, 285])
+                    .scale(1430)
+                    .translate([-1010, 305])
                 )
                 .keyAccessor(function (d) { return d.key; })
                 .valueAccessor(function (d) { return d.value; })
                 .controlsUseVisibility(true)
                 // .colors(['#ccc'].concat(colorbrewer.Blues[9])) 
-                .colors(d3.scaleQuantize().range(["#ddfdff", "#b9e9ec", "#a3deeb", "#93d3e9", "#86c5e5", "#7bb9e1", "#71acdb", "#68a1d5", "#6094cd", "#5888c5", "#517dba", "#4a71b0", "#4466a3", "#3e5b96", "#385188"]))
+                .colors(d3.scaleQuantize().range(["#f2e7e7", "#e5d0d0", "#d8b8b9", "#cba1a1", "#bf898a", "#b27273", "#a55a5b", "#984244", "#8b2b2d", "#7f1416", "#721213", "#651011", "#580e0f", "#4c0c0d", "#3f0a0b"]))
                 .colorDomain([0, districtGroup.top(1)[0].value / 2])
                 .colorCalculator(function (d) { return d ? districtMap.colors()(d) : '#ccc'; })
                 .overlayGeoJson(districtJson.features, "admin2Name", function (d) {
@@ -695,7 +748,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             districtMap.render();
 
-            // reach vs target stacked bar chart 
+            // beneficiary type vs ip stacked bar chart 
             var benefDim = ndx.dimension(function (d) {
                 return d.BeneficiaryType;
             });
@@ -728,7 +781,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             benefBarStack
                 .width(200)
-                .height(110)
+                .height(120)
                 .margins({ top: 5, right: 30, bottom: 20, left: 40 })
                 .dimension(benefDim)
                 .group(benefGroup, "INDIVIDUALS")
@@ -746,7 +799,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 //     return d.key + " Targeted: " + d3.format(",")(arr_max_val(d.value.TARGET));
                 // })
                 .gap(2)
-                .ordinalColors(['#3182bd', '#d3e4facc'])
+                .ordinalColors(['#984244'])
                 .renderHorizontalGridLines(true)
                 .controlsUseVisibility(true)
                 .x(d3.scaleBand())
@@ -773,7 +826,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .margins({ top: 5, right: 0, bottom: 0, left: 5 })
                 .dimension(statusDim)
                 .group(statusGroup)
-                .ordinalColors(["#41b6c4"])
+                .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
                     return d.key + ": " + d3.format(",.0f")(d.value)
@@ -803,7 +856,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .margins({ top: 5, right: 0, bottom: 0, left: 5 })
                 .dimension(modalityDim)
                 .group(modalityGroup)
-                .ordinalColors(["#41b6c4"])
+                .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
                     return d.key + ": " + d3.format(",.0f")(d.value);
@@ -821,11 +874,9 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             dc.renderAll();
 
-            // initFilters();
+            initFilters();
 
             dc.redrawAll();
-
-            rangeDate(data);
             
         });   /* district json */
     }); /* region json */

@@ -22,7 +22,7 @@
 
                 <div class="col-sm-auto align-self-start right-padding">
                     <h5 class="normal">SOMALIA</h5>
-                    <h5 class="float-left">SHELTER CLUSTER - 5W</h5>
+                    <h5 class="float-left">SHELTER CLUSTER ACTIVITIES - Who is doing What Where (3W)</h5>
                 </div>
 
                 <div class="col-sm">
@@ -31,7 +31,7 @@
                 <div class="col-sm-auto align-self-start back">
                     <!-- <a name="top"></a> -->
 
-                    <img src="img/UNHCR-visibility-horizontal-Blue-PMS-v2015.png" height="40px" alt="UNHCR">
+                    <img src="img/Shelter-cluster-logo.jpg" height="40px" alt="UNHCR">
 
                 </div>
 
@@ -74,13 +74,18 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <h6>TARGET</h6>
-                    <div id="dc-target-nd" class="nd">
+                    <h6>IMPLEMENTING PARTNERS</h6>
+                    <div id="dc-ip-nd" class="nd">
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     <h6>PARTNERS</h6>
                     <div id="dc-partner-nd" class="nd">
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <h6>DONORS</h6>
+                    <div id="dc-donor-nd" class="nd">
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -110,7 +115,7 @@
             <!-- /key figures and row charts -->
 
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div id="dc-month-bar">
                         <h6>
                             MONTHLY
@@ -123,7 +128,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div id="dc-benef-bar-stack" style="float: right;">
                     <!-- <div id="dc-benef-bar-stack"> -->
                         <h6>
@@ -210,7 +215,7 @@
                 <div class="col-sm-2">
                     <div id="dc-partner-select">
                         <h6>
-                            PARTNER
+                            IMPLEMENTING PARTNER
                             <a href="javascript:partnerSelect.filterAll();dc.redrawAll()" class="reset"
                                 style="visibility: hidden">
                                 Clear
@@ -221,7 +226,7 @@
                 <div class="col-sm-2">
                     <div id="dc-organ-select">
                         <h6>
-                            ORGANISATION
+                            PARTNER
                             <a href="javascript:organSelect.filterAll();dc.redrawAll()" class="reset"
                                 style="visibility: hidden">
                                 Clear
@@ -286,9 +291,29 @@
         <script type="text/javascript" src="js/dc.v3.0.6.js"></script>
         <script type="text/javascript" src="main.js"></script>
 
+        
         <footer>
             <div class="row">
                 <div class="col-sm-2 fade">
+                    <strong>Key:</strong>&nbsp;
+                    HOST - Host Community
+                </div>            
+                <div class="col-sm-2 fade">
+                    <!-- <strong>NIDP- Newly Displaced -->
+                    NIDP - Newly Displaced
+                </div>            
+                <div class="col-sm-2 fade">
+                    <!-- <strong>PIDP - </strong>&nbsp;Protracted IDPs -->
+                    PIDP - Protracted IDPs
+                </div>            
+                <div class="col-sm-6 fade">
+                    <!-- <strong>RRET - </strong>&nbsp;Refugee Returnees -->
+                    RRET - Refugee Returnees
+                </div>            
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3 fade">
                     <strong>Source:</strong>&nbsp;UNHCR
                 </div>
                 <div class="col-sm-3 fade">
@@ -297,7 +322,7 @@
                 <div class="col-sm-3 fade">
                     <strong>Feedback:</strong>&nbsp;sommopmn@unhcr.org
                 </div>
-                <div class="col-sm-4 fade">
+                <div class="col-sm-3 fade">
                     <strong>Developer:</strong>&nbsp;David Njoroge Mugo
                 </div>
             </div>
