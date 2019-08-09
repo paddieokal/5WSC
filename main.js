@@ -225,7 +225,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             // console.log(data);
 
-            $("#last-updated").html("as at " + dateFormat(lastUpdated));
+            $("#last-updated").html("as at " + lastUpdated);
 
             // attach data to crossfilter
             var ndx = crossfilter(data);
