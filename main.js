@@ -24,13 +24,17 @@ var regionMap = dc.geoChoroplethChart("#dc-region-map");
 var districtMap = dc.geoChoroplethChart("#dc-district-map");
 var programBenefHeat = dc.heatMap("#dc-program-benef-heat");
 
-var dateParse = d3.timeParse("%d-%m-%Y");
+var dateParse = d3.timeParse("%d/%m/%Y");
 var dateFormat = d3.timeFormat("%d/%m/%Y");
 var dateLongFormat = d3.timeFormat("%Y-%m-%d");
+
+var yearFormat = d3.timeFormat("%Y");
 // Correct end date due to month rounding off 
 // by adding or deducting a day
 var dayOffset = d3.timeDay.offset;
 var monthOffset = d3.timeMonth.offset;
+
+var lastUpdated;
 
 var ndx; // crossfilter global variable 
 
@@ -161,17 +165,18 @@ function arr_max_val(t) {
     //var arr = Object.values(t); // experimental function not being supported in IE
     var arr = Object.keys(t).map(function (itm) { return t[itm]; });
     return arr.reduce(function (a, b) {
-        // if array `b` is empty return `a`, 
+        // if array `b` is empty return `a`,    
         // otherwise return max value of `b`
         return (b.length == 0) ? a : a + d3.max(b);
     }, 0);
 }
 // returns extents (min and max values) of CSV 'Year' field
-function rangeDate(data) {
-    var yr = d3.max(data, function (d) {
-        return +d.CurrentYear;
-    });
+function rangeDate() {
+    // var yr = d3.max(data, function (d) {
+    //     return +d.LastUpdated;
+    // });
     // var yr = 2019;
+    var yr = dateParse(lastUpdated,4).getFullYear();
     var rng = [new Date(yr, 0, 1), new Date(yr + 1, 0, 31)];
     return rng;
 }
@@ -212,11 +217,15 @@ d3.csv('data/dataset.csv', function (error, data) {
                 d.StartMonth = dateParse(d.StartMonth);
                 d.EndMonth = dateParse(d.EndMonth);
                 d.Month = d3.timeMonth(d.EndMonth);
+
+                // last updated date 
+                if (lastUpdated === undefined) lastUpdated = d.LastUpdated
+                lastUpdated = lastUpdated > d.LastUpdated ? lastUpdated : d.LastUpdated;
             });
 
-            console.log(data);
+            // console.log(data);
 
-            $("#last-updated").html("as at " + dateFormat(Date.now()));
+            $("#last-updated").html("as at " + dateFormat(lastUpdated));
 
             // attach data to crossfilter
             var ndx = crossfilter(data);
@@ -627,7 +636,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 //.centerBar(true)
                 .renderHorizontalGridLines(true)
                 .controlsUseVisibility(true)
-                .x(d3.scaleTime().domain(rangeDate(data)))
+                .x(d3.scaleTime().domain(rangeDate()))
                 .xUnits(d3.timeMonths)
                 .round(d3.timeMonth)
                 .brushOn(true)
