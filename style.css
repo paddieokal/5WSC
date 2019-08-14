@@ -306,3 +306,8 @@ label.form-check-label {
     color: #1e5eae;
     background-color: #f2f2f2;
 }
+
+/* select menu round corners */
+select.dc-select-menu {
+    border-radius: .25rem;
+}
