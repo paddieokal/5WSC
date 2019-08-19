@@ -176,8 +176,8 @@ function rangeDate() {
     //     return +d.LastUpdated;
     // });
     // var yr = 2019;
-    var yr = dateParse(lastUpdated,4).getFullYear();
-    var rng = [new Date(yr, 0, 1), new Date(yr + 1, 0, 31)];
+    var y = dateParse(lastUpdated,4).getFullYear();
+    var rng = [new Date(y, 0, 1), new Date(y + 1, 0, 31)];
     return rng;
 }
 // loads CSV file based the button clicked
