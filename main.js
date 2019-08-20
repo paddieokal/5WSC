@@ -18,11 +18,13 @@ var ruralUrbanRow = dc.rowChart("#dc-rural-urban-row");
 var crisisRow = dc.rowChart("#dc-crisis-row");
 var programRow = dc.rowChart("#dc-program-row");
 var statusRow = dc.rowChart("#dc-status-row");
-var benefBarStack = dc.barChart("#dc-benef-bar-stack");
+var benefBar = dc.barChart("#dc-benef-bar-stack");
 var monthBar = dc.barChart("#dc-month-bar");
 var regionMap = dc.geoChoroplethChart("#dc-region-map");
 var districtMap = dc.geoChoroplethChart("#dc-district-map");
 var programBenefHeat = dc.heatMap("#dc-program-benef-heat");
+
+var numberFormat = d3.format(",.0f");
 
 var dateParse = d3.timeParse("%d/%m/%Y");
 var dateFormat = d3.timeFormat("%d/%m/%Y");
@@ -33,6 +35,46 @@ var yearFormat = d3.timeFormat("%Y");
 // by adding or deducting a day
 var dayOffset = d3.timeDay.offset;
 var monthOffset = d3.timeMonth.offset;
+
+var rowTip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-5, 0])
+  .html(function (d) { 
+    return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (d.key) + "</span> | <span class='dc-tooltip-value'>" + numberFormat(d.value) + "</span></div>"; 
+  });
+
+var barTip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-5, 0])
+  .html(function (d) { 
+    return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (d.data.key) + "</span> | <span class='dc-tooltip-value'>" + numberFormat(d.data.value) + "</span></div>"; 
+  });
+
+var heatTip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-5, 0])
+  .html(function (d) { 
+    return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (d.key[1] + "<br>" + d.key[0]) + "</span> | <span class='dc-tooltip-value'>" + numberFormat(d.value) + "</span></div>"; 
+  });
+
+var stackTip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-5, 0])
+  .html(function (d) { 
+    return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (d.layer) + "</span> | <span class='dc-tooltip-value'>" + numberFormat(d.data.value[d.layer.toLowerCase()]) + "</span></div>"; 
+  });
+
+var mapTip = d3.tip()
+  .attr('class', 'd3-map-tip')
+  .offset([-5, 0])
+  .html(function (d) {
+
+    var t = d3.select(this).select('title').html();
+    var tA = t.split(':');
+    // d3.select(this).select('title').html('');
+
+    return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (tA[0]) + "</span> | <span class='dc-tooltip-value'>" + (tA[1]) + "</span></div>";
+  });
 
 var lastUpdated;
 
@@ -82,7 +124,7 @@ function getFiltersValues() {
         { name: 'par', value: partnerSelect.filters() }, //3
         { name: 'mon', value: resetFilter(monthBar.filters()) }, //4
         { name: 'crs', value: crisisRow.filters() }, //5
-        { name: 'bnf', value: benefBarStack.filters() }, //6
+        { name: 'bnf', value: benefBar.filters() }, //6
         { name: 'prg', value: programRow.filters() }, //7
         { name: 'pbn', value: programBenefHeat.filters() }, //8
         { name: 'don', value: donorSelect.filters() }, //9
@@ -162,7 +204,7 @@ function initFilters() {
         filter(partnerSelect, 3);
         filter(monthBar, 4);
         filter(crisisRow, 5);
-        filter(benefBarStack, 6);
+        filter(benefBar, 6);
         filter(programRow, 7);
         filter(programBenefHeat, 8);
         filter(donorSelect, 9);
@@ -474,16 +516,20 @@ d3.csv('data/dataset.csv', function (error, data) {
                     return d.value.men / d.value.individuals;
                 })
                 .title("Men", function (d) {
-                    return "Men: " + d3.format(".0%")(d.value.men / d.value.individuals);
+                    // return "Men: " + d3.format(".0%")(d.value.men / d.value.individuals);
+                    return '';
                 })
                 .title("Women", function (d) {
-                    return "Women: " + d3.format(".0%")(d.value.women / d.value.individuals);
+                    // return "Women: " + d3.format(".0%")(d.value.women / d.value.individuals);
+                    return '';
                 })
                 .title("Boys", function (d) {
-                    return "Boys: " + d3.format(".0%")(d.value.boys / d.value.individuals);
+                    // return "Boys: " + d3.format(".0%")(d.value.boys / d.value.individuals);
+                    return '';
                 })
                 .title("Girls", function (d) {
-                    return "Girls: " + d3.format(".0%")(d.value.girls / d.value.individuals);
+                    // return "Girls: " + d3.format(".0%")(d.value.girls / d.value.individuals);
+                    return '';
                 })
                 .controlsUseVisibility(true)
                 .gap(20)
@@ -498,6 +544,15 @@ d3.csv('data/dataset.csv', function (error, data) {
                 })
 
             demoBarStack.yAxis().ticks(3);
+
+            demoBarStack.on('renderlet', function (chart) {
+                chart.selectAll('rect')
+                  .attr('data-tooltip', 'hello');
+                
+                chart.selectAll(".bar").call(stackTip);
+                chart.selectAll(".bar").on('mouseover', stackTip.show)
+                  .on('mouseout', stackTip.hide);
+              });
 
             demoBarStack.render();
 
@@ -519,7 +574,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key + ": " + d3.format(",")(d.value)
+                    // return d.key + ": " + d3.format(",")(d.value)
+                    return ''
                 })
                 .controlsUseVisibility(true)
                 .gap(2)
@@ -529,6 +585,13 @@ d3.csv('data/dataset.csv', function (error, data) {
             ruralUrbanRow.xAxis().tickFormat(function (v) {
                 return d3.format(".1s")(v);
             });
+
+            ruralUrbanRow.on('renderlet', function (chart) {
+                chart.selectAll(".row").call(rowTip);
+                chart.selectAll(".row").on('mouseover', rowTip.show)
+                  .on('mouseout', rowTip.hide);
+              });  
+
             ruralUrbanRow.render();
 
             // crisis row chart
@@ -549,7 +612,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key + ": " + d3.format(",")(d.value)
+                    // return d.key + ": " + d3.format(",")(d.value)
+                    return '';
                 })
                 .controlsUseVisibility(true)
                 .gap(2)
@@ -559,6 +623,13 @@ d3.csv('data/dataset.csv', function (error, data) {
             crisisRow.xAxis().tickFormat(function (v) {
                 return d3.format(".1s")(v);
             });
+
+            crisisRow.on('renderlet', function (chart) {
+                chart.selectAll(".row").call(rowTip);
+                chart.selectAll(".row").on('mouseover', rowTip.show)
+                  .on('mouseout', rowTip.hide);
+              });  
+
             crisisRow.render();
 
             // programme row chart
@@ -577,15 +648,24 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key + ": " + d3.format(",")(d.value)
+                    // return d.key + ": " + d3.format(",")(d.value)
+                    return '';
                 })
                 .controlsUseVisibility(true)
                 .gap(2)
                 .elasticX(true)
                 .xAxis().ticks(3);
+            
             programRow.xAxis().tickFormat(function (v) {
                 return d3.format(".1s")(v);
             });
+
+            programRow.on('renderlet', function (chart) {
+                chart.selectAll(".row").call(rowTip);
+                chart.selectAll(".row").on('mouseover', rowTip.show)
+                  .on('mouseout', rowTip.hide);
+              });  
+
             programRow.render();
 
             // rights group and Pillar heatmap        
@@ -618,7 +698,16 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             programBenefHeat.on("preRedraw", function (chart) {
                 chart.calculateColorDomain();
-            })
+            });
+
+            programBenefHeat.on('renderlet', function (chart) {
+                // chart.selectAll('rect')
+                //   .attr('data-tooltip', 'hello');
+                
+                chart.selectAll(".heat-box").call(heatTip);
+                chart.selectAll(".heat-box").on('mouseover', heatTip.show)
+                  .on('mouseout', heatTip.hide);
+              });
 
             programBenefHeat.render();
 
@@ -721,6 +810,12 @@ d3.csv('data/dataset.csv', function (error, data) {
                 chart.colorDomain(d3.extent(chart.group().all(), chart.valueAccessor()));
             });
 
+            regionMap.on("renderlet", function (chart) {
+                chart.selectAll(".admin2Name").call(mapTip);
+                chart.selectAll(".admin2Name").on('mouseover', mapTip.show)
+                .on('mouseout', mapTip.hide);
+            });            
+
             regionMap.render();
 
             // district reached map
@@ -763,8 +858,14 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             districtMap.on("preRedraw", function (chart) {
                 chart.colorDomain(d3.extent(chart.group().all(), chart.valueAccessor()));
-            })
+            });
 
+            districtMap.on("renderlet", function (chart) {
+                chart.selectAll(".admin2Name").call(mapTip);
+                chart.selectAll(".admin2Name").on('mouseover', mapTip.show)
+                .on('mouseout', mapTip.hide);
+            }); 
+            
             districtMap.render();
 
             // beneficiary type vs ip stacked bar chart 
@@ -772,51 +873,22 @@ d3.csv('data/dataset.csv', function (error, data) {
                 return d.BeneficiaryType;
             });
 
-            var benefGroup = benefDim.group().reduce(
-                function (p, v) {
-                    // if (p.TARGET[v["RightsDistrict"]]) {
-                    //     p.TARGET[v["RightsDistrict"]].push(v["Target"]);
-                    // } else {
-                    //     p.TARGET[v["RightsDistrict"]] = [v["Target"]];
-                    // }
-                    p.INDIVIDUALS += +v.Individuals;
-                    return p;
-                },
-                function (p, v) {
-                    // var index = p.TARGET[v["RightsDistrict"]].indexOf(v["Target"]);
-                    // if (index > -1) {
-                    //     p.TARGET[v["RightsDistrict"]].splice(index, 1);
-                    // }
-                    p.INDIVIDUALS -= +v.Individuals;
-                    return p;
-                },
-                function () {
-                    return {
-                        // TARGET: {},
-                        INDIVIDUALS: 0
-                    };
+            var benefGroup = benefDim.group().reduceSum(
+                function (d) {
+                    return +d.Individuals;
                 }
             );
 
-            benefBarStack
+            benefBar
                 .width(200)
                 .height(120)
                 .margins({ top: 5, right: 30, bottom: 20, left: 40 })
                 .dimension(benefDim)
-                .group(benefGroup, "INDIVIDUALS")
-                .valueAccessor(function (d) {
-                    return d.value.INDIVIDUALS;
+                .group(benefGroup, "Individuals")
+                .title(function (d) {
+                    // return d.key + ": " + d3.format(",")(d.value.INDIVIDUALS);
+                    return '';
                 })
-                // .stack(benefGroup, "TARGETED", function (d) {
-                //     var r = arr_max_val(d.value.TARGET) - d.value.REACH;
-                //     return r < 0 ? 0 : r;
-                // })
-                .title("INDIVIDUALS", function (d) {
-                    return d.key + ": " + d3.format(",")(d.value.INDIVIDUALS);
-                })
-                // .title("TARGETED", function (d) {
-                //     return d.key + " Targeted: " + d3.format(",")(arr_max_val(d.value.TARGET));
-                // })
                 .gap(2)
                 .ordinalColors(['#984244'])
                 .renderHorizontalGridLines(true)
@@ -828,8 +900,18 @@ d3.csv('data/dataset.csv', function (error, data) {
                     return d3.format(".1s")(v);
                 });
 
-            benefBarStack.yAxis().ticks(4)
-            benefBarStack.render();
+            benefBar.yAxis().ticks(4);
+
+            benefBar.on('renderlet', function (chart) {
+              chart.selectAll('rect')
+                .attr('data-tooltip', 'hello');
+              
+              chart.selectAll(".bar").call(barTip);
+              chart.selectAll(".bar").on('mouseover', barTip.show)
+                .on('mouseout', barTip.hide);
+            });
+
+            benefBar.render();
 
   
             // status row chart
@@ -853,7 +935,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                     filter = filter == undefined ? statusFilter : filter;
                   })                
                 .title(function (d) {
-                    return d.key + ": " + d3.format(",.0f")(d.value)
+                    // return d.key + ": " + numberFormat(d.value);s
+                    return '';
                 })
                 .controlsUseVisibility(true)
                 .gap(2)
@@ -870,6 +953,12 @@ d3.csv('data/dataset.csv', function (error, data) {
             statusRow.removeFilterHandler(function(filters, filter) {
                 return filters;
             });
+
+            statusRow.on('renderlet', function (chart) {
+                chart.selectAll(".row").call(rowTip);
+                chart.selectAll(".row").on('mouseover', rowTip.show)
+                  .on('mouseout', rowTip.hide);
+              });            
 
             statusRow.render();
 
@@ -892,7 +981,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key + ": " + d3.format(",.0f")(d.value);
+                    // return d.key + ": " + numberFormat(d.value);
+                    return '';
                 })
                 .controlsUseVisibility(true)
                 .gap(2)
@@ -902,6 +992,12 @@ d3.csv('data/dataset.csv', function (error, data) {
             modalityRow.xAxis().tickFormat(function (v) {
                 return d3.format(".1s")(v);
             });
+
+            modalityRow.on('renderlet', function (chart) {
+                chart.selectAll(".row").call(rowTip);
+                chart.selectAll(".row").on('mouseover', rowTip.show)
+                  .on('mouseout', rowTip.hide);
+              });  
 
             modalityRow.render();
 
@@ -915,8 +1011,4 @@ d3.csv('data/dataset.csv', function (error, data) {
     }); /* region json */
 
 });
-
-
-
-
 
