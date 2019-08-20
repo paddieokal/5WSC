@@ -68,10 +68,8 @@ var mapTip = d3.tip()
   .attr('class', 'd3-map-tip')
   .offset([-5, 0])
   .html(function (d) {
-
     var t = d3.select(this).select('title').html();
     var tA = t.split(':');
-    // d3.select(this).select('title').html('');
 
     return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (tA[0]) + "</span> | <span class='dc-tooltip-value'>" + (tA[1]) + "</span></div>";
   });
