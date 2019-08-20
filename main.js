@@ -38,6 +38,8 @@ var lastUpdated;
 
 var ndx; // crossfilter global variable 
 
+var statusFilter = "Completed"; 
+
 // URL filters utilities:
 // prototyped array function that returns an array with unique values
 // from any that contains duplicate values, referred to in the 
@@ -75,7 +77,7 @@ function chunk(array, size) {
 // Serializing filters values in URL
 function getFiltersValues() {
     var filters = [
-        { name: 'sta', value: statusRow.filters() }, //1
+        { name: 'loc', value: locationSelect.filters() }, //1
         { name: 'mod', value: modalityRow.filters() }, // 2
         { name: 'par', value: partnerSelect.filters() }, //3
         { name: 'mon', value: resetFilter(monthBar.filters()) }, //4
@@ -88,8 +90,7 @@ function getFiltersValues() {
         { name: 'dis', value: districtMap.filters() }, //11
         { name: 'org', value: organSelect.filters() }, //12
         { name: 'rub', value: ruralUrbanRow.filters() }, //13
-        { name: 'loc', value: locationSelect.filters() }, //14
-        { name: 'q', value: 'q' } // 15
+        { name: 'sta', value: statusRow.filters() }, //14
 
     ];
     // console.log(filters[23]);
@@ -102,14 +103,21 @@ function initFilters() {
     // regExp accepts special characters
     var parseHash, parsed;
 
-    parseHash = /^#sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&q=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)$/;
+    parseHash = /^#loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)$/;
     parsed = parseHash.exec(decodeURIComponent(location.hash));
 
     function filter(chart, rank) {  // for instance chart = sector_chart and rank in URL hash = 1
 
         // sector chart
         if (parsed[rank] == "") {
-            chart.filter(null);
+            
+            if (rank == 14) {
+                chart.filter(statusFilter);
+                getFiltersValues();
+            } else {
+                chart.filter(null);
+                getFiltersValues();
+            }
         } else if (rank == 4) {     // monthBar
             var filterValues = parsed[rank].split(",");
 
@@ -123,7 +131,8 @@ function initFilters() {
             var filter = dc.filters.RangedFilter(start, dayOffset(end, 1));
             // var filter = dc.filters.RangedFilter(new Date(2017,2,1), new Date(2017,2,31));              
             chart.filter(filter);
-        } else if (rank == 8) {
+            getFiltersValues();
+        } else if (rank == 8) {     // heatmap
             var filterValues = parsed[rank].split(",");
             var chunkValues = chunk(filterValues, 2);
 
@@ -131,17 +140,24 @@ function initFilters() {
                 var filter = dc.filters.TwoDimensionalFilter(chunkValues[i]);
                 chart.filter(filter);
             }
-           
+            getFiltersValues();
+        } else if (rank == 14) {
+            var filterValues = parsed[rank].split(",");
+      
+            var filter = filterValues[0] == "" ? statusFilter : filterValues[0];
+            chart.filter(filter);
+            getFiltersValues();        
         } else {
             var filterValues = parsed[rank].split(",");
             for (var i = 0; i < filterValues.length; i++) {
                 chart.filter(filterValues[i]);
             }
+            getFiltersValues();
         }
     }
-    // debugger;
+    
     if (parsed) {
-        filter(statusRow, 1);
+        filter(locationSelect, 1);
         filter(modalityRow, 2);
         filter(partnerSelect, 3);
         filter(monthBar, 4);
@@ -154,8 +170,11 @@ function initFilters() {
         filter(districtMap, 11);
         filter(organSelect, 12);
         filter(ruralUrbanRow, 13);
-        filter(locationSelect, 14);
-        // no q filter // 15
+        filter(statusRow, 14);
+    } else {
+        // assign default year
+        statusRow.filter(statusFilter);
+        getFiltersValues();
     }
 
 }
@@ -185,15 +204,6 @@ function load_button(file) {
     dc.filterAll(); // removes all filters prior to replacing data source
     render_plots(file); // renders plots based on selected file
 }
-
-// d3.selectAll('#select-year input')
-//     .on('click', function () {
-//         yearFilter = this.value;
-//         getFiltersValues();
-//         parsed = parseHash.exec(decodeURIComponent(location.hash));
-//         load_button('api/dashboard/online_' + yearFilter + '.php'),
-//             dc.redrawAll();
-//     });
 
 // loader settings
 var target = document.getElementById('dc-partner-nd');
@@ -837,6 +847,11 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .group(statusGroup)
                 .ordinalColors(["#b27273"])
                 .on("filtered", getFiltersValues)
+                .on("filtered", function(){
+                    var filter = statusRow.filters()[0];
+                    // get filtered year 
+                    filter = filter == undefined ? statusFilter : filter;
+                  })                
                 .title(function (d) {
                     return d.key + ": " + d3.format(",.0f")(d.value)
                 })
@@ -844,9 +859,18 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .gap(2)
                 .elasticX(true)
                 .xAxis().ticks(3);
+            
             statusRow.xAxis().tickFormat(function (v) {
-                return d3.format(".1s")(v);
+                    return d3.format(".1s")(v);
+                });
+
+            // single select
+            statusRow.addFilterHandler(function(filters, filter) {return [filter];}); // this
+            // custom filter handler (no-op)
+            statusRow.removeFilterHandler(function(filters, filter) {
+                return filters;
             });
+
             statusRow.render();
 
             // modality barchart
