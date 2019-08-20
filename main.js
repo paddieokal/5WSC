@@ -1010,3 +1010,6 @@ d3.csv('data/dataset.csv', function (error, data) {
 
 });
 
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+  });

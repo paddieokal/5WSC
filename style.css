@@ -368,3 +368,32 @@ label.form-check-label {
     float: none;  
   }
   /* d3-tip (dc.css modifier) - end */
+
+  /* bootstrap change color */
+.tooltip-inner {
+    color: white;
+    border-color: grey;
+    background-color: #bf898a;
+}
+
+.tooltip.bs-tooltip-right .arrow:before {
+    border-right-color: #bf898a !important;
+}
+
+.tooltip.bs-tooltip-left .arrow:before {
+    border-left-color: #bf898a !important;
+}
+
+.tooltip.bs-tooltip-bottom .arrow:before {
+    border-bottom-color: #bf898a !important;
+}
+
+.tooltip.bs-tooltip-top .arrow:before {
+    border-top-color: #bf898a !important;
+}
+
+/* fontawesome */
+.far {
+    color: #bf898a;
+    font-size: 12px;
+}
