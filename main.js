@@ -684,8 +684,9 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .colorAccessor(function (d) { return +d.value; })
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key[1] + "\n" +
-                        d.key[0] + ": " + d3.format(",")(d.value);
+                    // return d.key[1] + "\n" +
+                    //     d.key[0] + ": " + d3.format(",")(d.value);
+                    return '';
                 })
                 .colors(["#f2e7e7", "#e5d0d0", "#d8b8b9", "#cba1a1", "#bf898a", "#b27273", "#a55a5b", "#984244", "#8b2b2d", "#7f1416", "#721213", "#651011", "#580e0f", "#4c0c0d", "#3f0a0b"])
                 .colorCalculator(function (d) {
