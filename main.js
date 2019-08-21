@@ -409,6 +409,10 @@ d3.csv('data/dataset.csv', function (error, data) {
                 organDim = ndx.dimension(function (d) { return d.Organisation }),
                 locationDim = ndx.dimension(function (d) { return d.Location });
 
+            var locationGroup = locationDim.group().reduceSum(function(d){
+                d.Individuals;
+            });
+
             donorSelect
                 .dimension(donorDim)
                 .group(donorDim.group())
@@ -456,13 +460,15 @@ d3.csv('data/dataset.csv', function (error, data) {
                 // .width(100)
                 // .height(100)
                 .dimension(locationDim)
-                .group(locationDim.group())
+                .group(locationDim.group().reduceSum(function(d){
+                    return d.Individuals;
+                }))
                 .multiple(true)
                 // .numberVisible(14)
                 .controlsUseVisibility(true)
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key;
+                    return d.key.substring(0,(d.key.length - 17)) + " - " + numberFormat(d.value) + "";
                 })
                 ;
             locationSelect.render();
@@ -603,7 +609,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             crisisRow
                 .width(160)
-                .height(200)
+                .height(190)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(crisisDim)
                 .group(crisisGroup)
@@ -639,7 +645,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             programRow
                 .width(210)
-                .height(200)
+                .height(190)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(programDim)
                 .group(programGroup)
@@ -675,7 +681,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             programBenefHeat
                 .width(345)
-                .height(205)
+                .height(195)
                 .margins({ top: 5, right: 30, bottom: 20, left: 180 })
                 .dimension(programBenefDim)
                 .group(programBenefGroup)
