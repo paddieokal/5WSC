@@ -286,17 +286,17 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             var partnerNdGroup = ndx.groupAll().reduce(
                 function (p, v) { //add
-                    if (p[v.Organisation]) {
-                        p[v.Organisation]++;
+                    if (p[v.Organization]) {
+                        p[v.Organization]++;
                     } else {
-                        p[v.Organisation] = 1;
+                        p[v.Organization] = 1;
                     }
                     return p;
                 },
                 function (p, v) { //remove
-                    p[v.Organisation]--;
-                    if (p[v.Organisation] === 0) {
-                        delete p[v.Organisation];
+                    p[v.Organization]--;
+                    if (p[v.Organization] === 0) {
+                        delete p[v.Organization];
                     }
                     return p;
                 },
@@ -406,7 +406,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             var 
                 donorDim = ndx.dimension(function (d) { return d.Donor }),
                 partnerDim = ndx.dimension(function (d) { return d.IP }),
-                organDim = ndx.dimension(function (d) { return d.Organisation }),
+                organDim = ndx.dimension(function (d) { return d.Organization }),
                 locationDim = ndx.dimension(function (d) { return d.Location });
 
             var locationGroup = locationDim.group().reduceSum(function(d){
