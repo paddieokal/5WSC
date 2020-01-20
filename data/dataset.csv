@@ -1,4 +1,4 @@
-﻿Organisation,IP,Programme,Donor,Crisis,Status,BeneficiaryType,RuralUrban,Modality,RegionMap,DistrictMap,Location,StartMonth,EndMonth,EndYear,LastUpdated,Individuals,Households,Men,Women,Boys,Girls
+﻿Organization,IP,Programme,Donor,Crisis,Status,BeneficiaryType,RuralUrban,Modality,RegionMap,DistrictMap,Location,StartMonth,EndMonth,EndYear,LastUpdated,Individuals,Households,Men,Women,Boys,Girls
 IOM,ACTED,EAPS,DFID,Flood,Planned,NIDP,Urban,In-Kind,Bay,Baidoa,Baidoa - NA-3802-X04-001,30/11/2019,31/01/2020,2020,31/12/2019,6768,1128,1409,1365,2018,2018
 ACTED,ACTED,EMERGENCY SHELTER,SHF,Drought,Completed,NIDP,Urban,In-Kind,Sanaag,Ceerigaabo,Badhan - NC-3905-G08-001,31/05/2019,31/05/2019,2019,31/12/2019,1800,300,375,363,537,537
 ACTED,ACTED,TRANSITIONAL SHELTER,OFDA,Protracted,Completed,PIDP,Urban,In-Kind,Bay,Baidoa,Baidoa - NA-3802-X04-001,28/02/2019,30/06/2019,2019,31/12/2019,600,100,102,106,220,220
