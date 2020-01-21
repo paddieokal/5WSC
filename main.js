@@ -24,6 +24,7 @@ var programRow = dc.rowChart("#dc-program-row");
 var statusRow = dc.rowChart("#dc-status-row");
 var benefBar = dc.barChart("#dc-benef-bar-stack");
 var monthBar = dc.barChart("#dc-month-bar");
+var yearBar = dc.barChart("#dc-year-bar");
 var regionMap = dc.geoChoroplethChart("#dc-region-map");
 var districtMap = dc.geoChoroplethChart("#dc-district-map");
 var programBenefHeat = dc.heatMap("#dc-program-benef-heat");
@@ -83,6 +84,8 @@ var lastUpdated;
 var ndx; // crossfilter global variable 
 
 var statusFilter = "Completed"; 
+var yearFilter = 0; 
+
 
 // URL filters utilities:
 // prototyped array function that returns an array with unique values
@@ -135,6 +138,7 @@ function getFiltersValues() {
         { name: 'org', value: organSelect.filters() }, //12
         { name: 'rub', value: ruralUrbanRow.filters() }, //13
         { name: 'sta', value: statusRow.filters() }, //14
+        { name: 'yea', value: yearBar.filters() }, //15
 
     ];
     // console.log(filters[23]);
@@ -147,7 +151,7 @@ function initFilters() {
     // regExp accepts special characters
     var parseHash, parsed;
 
-    parseHash = /^#loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)$/;
+    parseHash = /^#loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&yea=([A-Za-z0-9,_\-\/\s]*)$/;
     parsed = parseHash.exec(decodeURIComponent(location.hash));
 
     function filter(chart, rank) {  // for instance chart = sector_chart and rank in URL hash = 1
@@ -157,6 +161,9 @@ function initFilters() {
             
             if (rank == 14) {
                 chart.filter(statusFilter);
+                getFiltersValues();
+            } else if (rank == 15) {
+                chart.filter(yearFilter);
                 getFiltersValues();
             } else {
                 chart.filter(null);
@@ -191,6 +198,12 @@ function initFilters() {
             var filter = filterValues[0] == "" ? statusFilter : filterValues[0];
             chart.filter(filter);
             getFiltersValues();        
+        } else if (rank == 15) {
+            var filterValues = parsed[rank].split(",");
+      
+            var filter = filterValues[0] == "" ? yearFilter : Number(filterValues[0]);
+            chart.filter(filter);
+            getFiltersValues();        
         } else {
             var filterValues = parsed[rank].split(",");
             for (var i = 0; i < filterValues.length; i++) {
@@ -215,9 +228,12 @@ function initFilters() {
         filter(organSelect, 12);
         filter(ruralUrbanRow, 13);
         filter(statusRow, 14);
+        filter(yearBar, 15);
     } else {
         // assign default year
         statusRow.filter(statusFilter);
+        // assign default year
+        yearBar.filter(yearFilter);
         getFiltersValues();
     }
 
@@ -271,7 +287,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 d.StartMonth = dateParse(d.StartMonth);
                 d.EndMonth = dateParse(d.EndMonth);
                 d.Month = d3.timeMonth(d.EndMonth);
-
+                // latest year
+                if (yearFilter < d.ReportYear) yearFilter = d.ReportYear;
                 // last updated date 
                 if (lastUpdated === undefined) lastUpdated = d.LastUpdated
                 lastUpdated = lastUpdated > d.LastUpdated ? lastUpdated : d.LastUpdated;
@@ -835,6 +852,62 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             programBenefHeat.render();
 
+            // configure displacement year dimension and group
+            var yearDim = ndx.dimension(function (d) {
+                return d.ReportYear;
+            });
+            var yearGroup = yearDim.group()
+                .reduceSum(function (d) {
+                return d.Individuals;
+                });
+    
+            // Configure displacement year bar chart parameters
+            yearBar
+                .height(120)
+                .width(100)
+                .margins({ top: 10, right: 10, bottom: 20, left: 35 })
+                .dimension(yearDim)
+                .group(yearGroup, "Year")
+                .gap(1)
+                .ordinalColors(['#984244'])
+                .renderHorizontalGridLines(true)
+                .controlsUseVisibility(true)
+                .x(d3.scaleBand())
+                .xUnits(dc.units.ordinal)
+                .brushOn(false)
+                .elasticY(true)
+                .on("filtered", getFiltersValues)
+                .on("filtered", function(){
+                    var filter = yearBar.filters()[0];
+                    // get filtered year 
+                    filter = filter == undefined ? yearFilter : filter;
+                    
+                    // reset min and max date based on filtered year
+                    monthBar.x(d3.scaleTime().domain(rangeDate(filter)));
+                })
+                .title(function (d) {
+                    // return d3.format(",")(d.value);
+                    return '';
+                })        
+                .yAxis()
+                .tickFormat(function (v) {
+                    return d3.format(".1s")(v);
+                })
+                .ticks(5);   
+
+            yearBar.filterPrinter(function(filters){
+                return "[" + filters[0] + "]";
+            });
+
+            // single select
+            yearBar.addFilterHandler(function(filters, filter) {return [filter];}); // this
+            // custom filter handler (no-op)
+            yearBar.removeFilterHandler(function(filters, filter) {
+                return filters;
+                // return [filter]
+            });
+
+
             // monthly reached bar charts
             monthDim = ndx.dimension(function (d) {
                 return d.EndMonth;
@@ -1006,7 +1079,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             benefBar
                 .width(200)
                 .height(120)
-                .margins({ top: 5, right: 30, bottom: 20, left: 40 })
+                .margins({ top: 10, right: 30, bottom: 20, left: 40 })
                 .dimension(benefDim)
                 .group(benefGroup, "Individuals")
                 .title(function (d) {
@@ -1055,7 +1128,6 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .on("filtered", getFiltersValues)
                 .on("filtered", function(){
                     var filter = statusRow.filters()[0];
-                    // get filtered year 
                     filter = filter == undefined ? statusFilter : filter;
                   })                
                 .title(function (d) {
