@@ -80,20 +80,14 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <h6>IMPLEMENTING PARTNERS</h6>
-                    <div id="dc-ip-nd">
-                    </div>
+                    <h6>PEOPLE-IN-NEED</h6>
+                
                 </div>
-                <div class="col-sm-1">
-                    <h6>PARTNERS</h6>
-                    <div id="dc-partner-nd">
-                    </div>
+                <div class="col-sm-2">
+                    <h6>TARGETED</h6>
+        
                 </div>
-                <div class="col-sm-1">
-                    <h6>DONORS</h6>
-                    <div id="dc-donor-nd">
-                    </div>
-                </div>
+
                 <div class="col-sm-2">
                     <div id="dc-modality-row">
                         <h6>
@@ -131,10 +125,10 @@
                     <div id="dc-month-bar">
                         <h6>
                             MONTHLY
+                            <span class="filter"></span>
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                 title="Click and drag (brush) over the bars to filter by month(s)">
                             </a>
-                            <span class="filter"></span>
                             <a href="javascript:monthBar.filterAll();dc.redrawAll()" class="reset"
                                 style="visibility: hidden"
                                 title="If in Google Chrome browser, click middle mouse button to Clear.">
@@ -189,17 +183,9 @@
 
                 </div>
                 <div class="col-sm-2">
-                    <div id="dc-donor-select">
-                        <h6>
-                            DONOR
-                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
-                                title="Click on an item(s) in the list to select and filter by">
-                            </a>
-                            <a href="javascript:donorSelect.filterAll();dc.redrawAll()" class="reset"
-                                style="visibility: hidden">
-                                Clear
-                            </a>
-                        </h6>
+                    <div>
+                        <h6>PCM/PDM / CRFM</h6>
+                        
                     </div>
                 </div>
             </div>
@@ -249,23 +235,23 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div id="dc-partner-select">
+                    <div id="dc-donor-select">
                         <h6>
-                            IMPLEMENTING PARTNER
+                            <span id="dc-donor-nd"></span> DONORS
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                 title="Click on an item(s) in the list to select and filter by">
                             </a>
-                            <a href="javascript:partnerSelect.filterAll();dc.redrawAll()" class="reset"
+                            <a href="javascript:donorSelect.filterAll();dc.redrawAll()" class="reset"
                                 style="visibility: hidden">
                                 Clear
                             </a>
                         </h6>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="col-sm-2">
                     <div id="dc-organ-select">
                         <h6>
-                            PARTNER
+                            <span id="dc-partner-nd"></span> PARTNERS
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                 title="Click on an item(s) in the list to select and filter by">
                             </a>
@@ -307,7 +293,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div id="dc-location-select">
                         <h6>
                             SPECIFIC LOCATION
@@ -315,6 +301,23 @@
                                 title="Click on an item(s) in the list to select and filter by">
                             </a>
                             <a href="javascript:locationSelect.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div id="dc-partner-select">
+                        <h6 >
+                            
+                            <span id="dc-ip-nd"></span> IMPLEMENT. PARTNERS
+                            
+                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
+                                title="Click on an item(s) in the list to select and filter by">
+                            </a>
+                            <a href="javascript:partnerSelect.filterAll();dc.redrawAll()" class="reset"
                                 style="visibility: hidden">
                                 Clear
                             </a>
@@ -365,24 +368,20 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-sm-3 fade">
+                <div class="col-sm-4 fade">
                     <span>
                         <strong>Source:</strong>&nbsp;Shelter Cluster, Somalia
                     </span>
                 </div>
                 <div class="col-sm-3 fade">
-                    <span>
+                    <span style="float: right">
                         <strong>Author:</strong>&nbsp;UNHCR, Somalia
                     </span>
                 </div>
-                <div class="col-sm-3 fade">
+                <div class="col-sm-5 fade">
                     <span style="float: right">
-                        <strong>Feedback:</strong>&nbsp;okal@unhcr.org
-                    </span>
-                </div>
-                <div class="col-sm-3 fade">
-                    <span style="float: right">
-                        <strong>Developer:</strong>&nbsp;mugod@unhcr.org
+                        <strong>Feedback:</strong>&nbsp;
+                        Padmore Okal, okal@unhcr.org
                     </span>
                 </div>
             </div>

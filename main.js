@@ -311,7 +311,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .valueAccessor(function (d) {
                     return Object.keys(d).length;
                 })
-                .formatNumber(d3.format(","));
+                .formatNumber(d3.format(","))
+                .transitionDuration(0);
             partnerNd.render();
             
             // implementing partners
@@ -342,7 +343,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .valueAccessor(function (d) {
                     return Object.keys(d).length;
                 })
-                .formatNumber(d3.format(","));
+                .formatNumber(d3.format(","))
+                .transitionDuration(0);
             ipNd.render();
 
             // donors
@@ -373,7 +375,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .valueAccessor(function (d) {
                     return Object.keys(d).length;
                 })
-                .formatNumber(d3.format(","));
+                .formatNumber(d3.format(","))
+                .transitionDuration(0);
             donorNd.render();
 
             var individualNdGroup = ndx.groupAll().reduceSum(function (d) {

@@ -46,7 +46,16 @@ a:hover {
 
 li{
     margin: 10px 0;
-    font-size: .8rem;
+    font-size: 1rem;
+}
+
+#dc-donor-nd .number-display,
+#dc-partner-nd .number-display, 
+#dc-ip-nd .number-display
+{
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #984244;
 }
 
 .normal {
@@ -215,7 +224,7 @@ footer {
 } */
 #dc-partner-select .dc-select-menu[multiple]{
     width: 160px;
-    height: 185px;
+    height: 340px;
     margin-top: 5px;
 }
 #dc-organ-select .dc-select-menu[multiple]{
@@ -225,13 +234,14 @@ footer {
 }
 #dc-donor-select .dc-select-menu[multiple]{
     width: 160px;
-    height: 115px;
+    height: 185px;
     margin-top: 5px;
 }
 #dc-location-select .dc-select-menu[multiple]{
-    width: 350px;
+    width: 160px;
     height: 340px;
     margin-top: 5px;
+
 }
 
 /* hide x axis for partner type row chart */
