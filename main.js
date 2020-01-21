@@ -15,6 +15,8 @@ var
     locationSelect = dc.selectMenu("#dc-location-select");
 
 var demoBarStack = dc.barChart("#dc-demo-bar-stack");
+var pcmPie = dc.pieChart("#dc-pcm-pie");
+var crfmPie = dc.pieChart("#dc-crfm-pie");
 var modalityRow = dc.rowChart("#dc-modality-row");
 var ruralUrbanRow = dc.rowChart("#dc-rural-urban-row");
 var crisisRow = dc.rowChart("#dc-crisis-row");
@@ -616,6 +618,67 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             demoBarStack.render();
 
+            // PCM/PDM pie chart
+            var pcmDim = ndx.dimension(function (d) {
+                return d.PCM;
+            });
+
+            var pcmGroup = pcmDim.group().reduceCount(function (d) {
+                return d.Id;
+            });
+
+            pcmPie
+                .width(100)
+                .height(100)
+                // .radius(90)
+                .innerRadius(25)
+                .dimension(pcmDim)
+                .group(pcmGroup)
+                .label(function (d) {
+                    // var k = d.key == "Known" ? "KN" : "UNK"
+                    // return k;
+                    return d.key
+                })
+                // .title(function (d) {
+                //     return d.key + ": " + numKFormat(d.value)
+                // })
+                .ordinalColors(['#8b2b2d','#a55a5b', '#bf898a', '#d8b8b9'])
+                .controlsUseVisibility(true)
+                .on("filtered", getFiltersValues);
+
+            pcmPie.render();
+
+            // CRFM pie chart
+            var crfmDim = ndx.dimension(function (d) {
+                return d.CRFM;
+            });
+
+            var crfmGroup = crfmDim.group().reduceCount(function (d) {
+                return d.Id;
+            });
+
+            crfmPie
+                .width(100)
+                .height(100)
+                // .radius(90)
+                .innerRadius(25)
+                .dimension(crfmDim)
+                .group(crfmGroup)
+                .label(function (d) {
+                    // var k = d.key == "Known" ? "KN" : "UNK"
+                    // return k;
+                    return d.key
+                })
+                // .title(function (d) {
+                //     return d.key + ": " + numKFormat(d.value)
+                // })
+                .ordinalColors(['#8b2b2d','#a55a5b', '#bf898a', '#d8b8b9'])
+                .controlsUseVisibility(true)
+                .on("filtered", getFiltersValues);
+
+            crfmPie.render();
+
+
             // rural urban row chart
             var ruralUrbanDim = ndx.dimension(function (d) {
                 return d.RuralUrban;
@@ -626,7 +689,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             ruralUrbanRow
-                .width(155)
+                .width(110)
                 .height(120)
                 .margins({ top: 5, right: 0, bottom: 20, left: 5 })
                 .dimension(ruralUrbanDim)
