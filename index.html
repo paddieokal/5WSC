@@ -80,12 +80,14 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <h6>PEOPLE-IN-NEED</h6>
-                
+                    <h6>TARGETED</h6>
+                    <div id="dc-target-nd">
+                    </div>
                 </div>
                 <div class="col-sm-2">
-                    <h6>TARGETED</h6>
-        
+                    <h6>PEOPLE-IN-NEED</h6>
+                    <div id="dc-pin-nd">
+                    </div>
                 </div>
 
                 <div class="col-sm-2">
@@ -121,7 +123,21 @@
             <!-- /key figures and row charts -->
 
             <div class="row">
-                <div class="col-sm-4">
+            <div class="col-sm-8">
+                <div class="row">
+                <div class="col-sm-2">
+                    <div id="dc-year-bar">
+                        <h6>
+                            YEARLY
+                            <span class="filter"></span>
+                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
+                                title="Click bar(s) to select and filter by">
+                            </a>
+
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-5">
                     <div id="dc-month-bar">
                         <h6>
                             MONTHLY
@@ -138,6 +154,20 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
+                    <div id="dc-demo-bar-stack">
+                        <h6>
+                            AGE-GENDER
+                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
+                                title="Stacks are not clickable, hover over (mouseover) to view specifics">
+                            </a>
+                            <!-- <a href="javascript:demoBarStack.filterAll();dc.redrawAll()" 
+                                            class="reset" style="visibility: hidden">
+                                           Clear
+                                     </a>  -->
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-sm-3">
                     <div id="dc-benef-bar-stack" style="float: right;">
                         <!-- <div id="dc-benef-bar-stack"> -->
                         <h6>
@@ -152,21 +182,8 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div id="dc-demo-bar-stack">
-                        <h6>
-                            DEMOGRAPHIC
-                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
-                                title="Stacks are not clickable, hover over (mouseover) to view specifics">
-                            </a>
-                            <!-- <a href="javascript:demoBarStack.filterAll();dc.redrawAll()" 
-                                            class="reset" style="visibility: hidden">
-                                           Clear
-                                     </a>  -->
-                        </h6>
-                    </div>
                 </div>
-
+            </div>
                 <div class="col-sm-2">
                     <div id="dc-rural-urban-row">
                         <h6>
@@ -184,7 +201,12 @@
                 </div>
                 <div class="col-sm-2">
                     <div>
-                        <h6>PCM/PDM / CRFM</h6>
+                        <h6>
+                            PCM/PDM / CRFM
+                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
+                                title="Click bar(s) to select and filter by">
+                            </a>
+                        </h6>
                         
                     </div>
                 </div>
@@ -192,6 +214,21 @@
             <!-- /bar charts -->
 
             <div class="row">
+                <div class="col-sm-2">
+                    <div id="dc-crisis-row">
+                        <h6>
+                            CRISIS
+                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
+                                title="Click bar(s) to select and filter by">
+                            </a>
+                            <a href="javascript:crisisRow.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+
                 <div class="col-sm-2">
                     <div id="dc-program-row">
                         <h6>
@@ -220,20 +257,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div id="dc-crisis-row">
-                        <h6>
-                            CRISIS
-                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
-                                title="Click bar(s) to select and filter by">
-                            </a>
-                            <a href="javascript:crisisRow.filterAll();dc.redrawAll()" class="reset"
-                                style="visibility: hidden">
-                                Clear
-                            </a>
-                        </h6>
-                    </div>
-                </div>
+
                 <div class="col-sm-2">
                     <div id="dc-donor-select">
                         <h6>

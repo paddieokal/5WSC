@@ -5,6 +5,8 @@ var
     partnerNd = dc.numberDisplay("#dc-partner-nd"),
     individualNd = dc.numberDisplay("#dc-individual-nd"),
     householdNd = dc.numberDisplay("#dc-household-nd"),
+    targetNd = dc.numberDisplay("#dc-target-nd"),
+    pinNd = dc.numberDisplay("#dc-pin-nd"),
     ipNd = dc.numberDisplay("#dc-ip-nd"),
     donorNd = dc.numberDisplay("#dc-donor-nd"),
     partnerSelect = dc.selectMenu("#dc-partner-select"),
@@ -405,6 +407,57 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             householdNd.render();
 
+            // var targetNdGroup = ndx.groupAll().reduceSum(function (d) {
+            //     return d.Target;
+            // });
+            var targetNdGroup = ndx.groupAll().reduce(
+                function (p, v) {
+                    p.Target = +v.Target;
+                    return p;
+                },
+                function (p, v) {
+                    p.Target = +v.Target;
+                    return p;
+                },
+                function () {
+                    return { Target:0 };
+                }
+            );
+
+            targetNd
+                .group(targetNdGroup)
+                .valueAccessor(function (d) {
+                    return d.Target;
+                })
+                .formatNumber(d3.format(".2s"))
+                .transitionDuration(0);
+
+            targetNd.render();
+
+            var pinNdGroup = ndx.groupAll().reduce(
+                function (p, v) {
+                    p.PIN = +v.PIN;
+                    return p;
+                },
+                function (p, v) {
+                    p.PIN = +v.PIN;
+                    return p;
+                },
+                function () {
+                    return { PIN:0 };
+                }
+            );
+
+            pinNd
+                .group(pinNdGroup)
+                .valueAccessor(function (d) {
+                    return d.PIN;
+                })
+                .formatNumber(d3.format(".2s"))
+                .transitionDuration(0);
+
+            pinNd.render();            
+
 
             var 
                 donorDim = ndx.dimension(function (d) { return d.Donor }),
@@ -479,7 +532,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             // demographic stacked bar chart
             var demoDim = ndx.dimension(function (d) {
-                return "Age/Gender";
+                return "";
             });
             var demoGroup = demoDim.group().reduce(
                 function (p, v) {
@@ -505,9 +558,9 @@ d3.csv('data/dataset.csv', function (error, data) {
                 }
             );
             demoBarStack
-                .width(160)
+                .width(100)
                 .height(120)
-                .margins({ top: 7, right: 10, bottom:20, left: 80 })
+                .margins({ top: 7, right: 5, bottom:20, left: 35 })
                 .dimension(demoDim)
                 .group(demoGroup, "Girls")
                 .valueAccessor(function (d) {
@@ -729,7 +782,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             monthBar
-                .width(320)
+                .width(300)
                 .height(120)
                 .margins({ top: 10, right: -17, bottom: 20, left: 30 })
                 .dimension(monthDim)
@@ -763,9 +816,9 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             monthBar.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x")
-                    .attr('transform', "translate(43,100)");
+                    .attr('transform', "translate(42,100)");
                 chart.selectAll("g.chart-body")
-                    .attr('transform', "translate(8,10)");
+                    .attr('transform', "translate(10,10)");
             });
 
             monthBar.filterPrinter(function (filters) {
