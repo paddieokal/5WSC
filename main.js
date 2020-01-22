@@ -69,6 +69,13 @@ var stackTip = d3.tip()
     return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (d.layer) + "</span> | <span class='dc-tooltip-value'>" + numberFormat(d.data.value[d.layer.toLowerCase()]) + "</span></div>"; 
   });
 
+var pieTip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([5, 0])
+  .html(function (d) { 
+    return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (d.data.key) + "</span> | <span class='dc-tooltip-value'>" + numberFormat(d.data.value) + "</span></div>"; 
+  });
+
 var mapTip = d3.tip()
   .attr('class', 'd3-map-tip')
   .offset([-5, 0])
@@ -645,10 +652,10 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             pcmPie
-                .width(100)
-                .height(100)
+                .width(98)
+                .height(98)
                 // .radius(90)
-                .innerRadius(25)
+                .innerRadius(26)
                 .dimension(pcmDim)
                 .group(pcmGroup)
                 .label(function (d) {
@@ -656,12 +663,23 @@ d3.csv('data/dataset.csv', function (error, data) {
                     // return k;
                     return d.key
                 })
-                // .title(function (d) {
-                //     return d.key + ": " + numKFormat(d.value)
-                // })
+                .title(function (d) {
+                    return ""
+                    // return d.key + ": " + numKFormat(d.value)
+                })
                 .ordinalColors(['#8b2b2d','#a55a5b', '#bf898a', '#d8b8b9'])
                 .controlsUseVisibility(true)
                 .on("filtered", getFiltersValues);
+            
+            pcmPie
+                .on('renderlet', function (chart) {
+                    // chart.selectAll('rect')
+                    //   .attr('data-tooltip', 'hello');
+                    
+                    chart.selectAll(".pie-slice").call(pieTip);
+                    chart.selectAll(".pie-slice").on('mouseover', pieTip.show)
+                    .on('mouseout', pieTip.hide);
+                });
 
             pcmPie.render();
 
@@ -675,10 +693,10 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             crfmPie
-                .width(100)
-                .height(100)
+                .width(98)
+                .height(98)
                 // .radius(90)
-                .innerRadius(25)
+                .innerRadius(26)
                 .dimension(crfmDim)
                 .group(crfmGroup)
                 .label(function (d) {
@@ -686,12 +704,23 @@ d3.csv('data/dataset.csv', function (error, data) {
                     // return k;
                     return d.key
                 })
-                // .title(function (d) {
-                //     return d.key + ": " + numKFormat(d.value)
-                // })
+                .title(function (d) {
+                    return ""
+                    //return d.key + ": " + numKFormat(d.value)
+                })
                 .ordinalColors(['#8b2b2d','#a55a5b', '#bf898a', '#d8b8b9'])
                 .controlsUseVisibility(true)
                 .on("filtered", getFiltersValues);
+
+            crfmPie
+                .on('renderlet', function (chart) {
+                    // chart.selectAll('rect')
+                    //   .attr('data-tooltip', 'hello');
+                    
+                    chart.selectAll(".pie-slice").call(pieTip);
+                    chart.selectAll(".pie-slice").on('mouseover', pieTip.show)
+                    .on('mouseout', pieTip.hide);
+                });
 
             crfmPie.render();
 
@@ -907,6 +936,16 @@ d3.csv('data/dataset.csv', function (error, data) {
                 // return [filter]
             });
 
+            yearBar.on('renderlet', function (chart) {
+                chart.selectAll('rect')
+                  .attr('data-tooltip', 'hello');
+                
+                chart.selectAll(".bar").call(barTip);
+                chart.selectAll(".bar").on('mouseover', barTip.show)
+                  .on('mouseout', barTip.hide);
+              });
+
+            yearBar.render();
 
             // monthly reached bar charts
             monthDim = ndx.dimension(function (d) {
