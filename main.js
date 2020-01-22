@@ -144,8 +144,10 @@ function getFiltersValues() {
         { name: 'dis', value: districtMap.filters() }, //11
         { name: 'org', value: organSelect.filters() }, //12
         { name: 'rub', value: ruralUrbanRow.filters() }, //13
-        { name: 'sta', value: statusRow.filters() }, //14
-        { name: 'yea', value: yearBar.filters() }, //15
+        { name: 'pcm', value: pcmPie.filters() }, //14
+        { name: 'crf', value: crfmPie.filters() }, //15
+        { name: 'sta', value: statusRow.filters() }, //16
+        { name: 'yea', value: yearBar.filters() }, //17
 
     ];
     // console.log(filters[23]);
@@ -158,7 +160,7 @@ function initFilters() {
     // regExp accepts special characters
     var parseHash, parsed;
 
-    parseHash = /^#loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&yea=([A-Za-z0-9,_\-\/\s]*)$/;
+    parseHash = /^#loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pcm=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&crf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&yea=([A-Za-z0-9,_\-\/\s]*)$/;
     parsed = parseHash.exec(decodeURIComponent(location.hash));
 
     function filter(chart, rank) {  // for instance chart = sector_chart and rank in URL hash = 1
@@ -166,10 +168,10 @@ function initFilters() {
         // sector chart
         if (parsed[rank] == "") {
             
-            if (rank == 14) {
+            if (rank == 16) {
                 chart.filter(statusFilter);
                 getFiltersValues();
-            } else if (rank == 15) {
+            } else if (rank == 17) {
                 chart.filter(yearFilter);
                 getFiltersValues();
             } else {
@@ -199,13 +201,13 @@ function initFilters() {
                 chart.filter(filter);
             }
             getFiltersValues();
-        } else if (rank == 14) {
+        } else if (rank == 16) {
             var filterValues = parsed[rank].split(",");
       
             var filter = filterValues[0] == "" ? statusFilter : filterValues[0];
             chart.filter(filter);
             getFiltersValues();        
-        } else if (rank == 15) {
+        } else if (rank == 17) {
             var filterValues = parsed[rank].split(",");
       
             var filter = filterValues[0] == "" ? yearFilter : Number(filterValues[0]);
@@ -234,8 +236,10 @@ function initFilters() {
         filter(districtMap, 11);
         filter(organSelect, 12);
         filter(ruralUrbanRow, 13);
-        filter(statusRow, 14);
-        filter(yearBar, 15);
+        filter(pcmPie, 14);
+        filter(crfmPie, 15);
+        filter(statusRow, 16);
+        filter(yearBar, 17);
     } else {
         // assign default year
         statusRow.filter(statusFilter);
