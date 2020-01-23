@@ -567,7 +567,8 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .controlsUseVisibility(true)
                 .on("filtered", getFiltersValues)
                 .title(function (d) {
-                    return d.key.substring(0,(d.key.length - 17)) + " - " + numberFormat(d.value) + "";
+                    return d.key
+                    // return d.key.substring(0,(d.key.length - 17)) + " - " + numberFormat(d.value) + "";
                 })
                 ;
             locationSelect.render();
