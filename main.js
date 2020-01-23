@@ -9,6 +9,7 @@ var
     pinNd = dc.numberDisplay("#dc-pin-nd"),
     ipNd = dc.numberDisplay("#dc-ip-nd"),
     donorNd = dc.numberDisplay("#dc-donor-nd"),
+    projectNd = dc.numberDisplay("#dc-project-nd"),
     partnerSelect = dc.selectMenu("#dc-partner-select"),
     organSelect = dc.selectMenu("#dc-organ-select"),
     donorSelect = dc.selectMenu("#dc-donor-select"),
@@ -73,7 +74,8 @@ var pieTip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([5, 0])
   .html(function (d) { 
-    return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (d.data.key) + "</span> | <span class='dc-tooltip-value'>" + numberFormat(d.data.value) + "</span></div>"; 
+    // console.log( d.data.key + ' ' + Math.round((d.endAngle - d.startAngle) / Math.PI * 50) + '%')
+    return "<div class='dc-tooltip'><span class='dc-tooltip-title'>" + (d.data.key) + "</span> | <span class='dc-tooltip-value'>" + Math.round((d.endAngle - d.startAngle) / Math.PI * 50) + '%' + "</span></div>"; 
   });
 
 var mapTip = d3.tip()
@@ -314,7 +316,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             // reduce function returns an object with unique partner acronyms
             // as object keys and # of partner occurences as object values
 
-            var partnerNdGroup = ndx.groupAll().reduce(
+            var partnerGroup = ndx.groupAll().reduce(
                 function (p, v) { //add
                     if (p[v.Organization]) {
                         p[v.Organization]++;
@@ -337,7 +339,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
 
             partnerNd
-                .group(partnerNdGroup)
+                .group(partnerGroup)
                 .valueAccessor(function (d) {
                     return Object.keys(d).length;
                 })
@@ -346,7 +348,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             partnerNd.render();
             
             // implementing partners
-            var ipNdGroup = ndx.groupAll().reduce(
+            var ipGroup = ndx.groupAll().reduce(
                 function (p, v) { //add
                     if (p[v.IP]) {
                         p[v.IP]++;
@@ -369,7 +371,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
 
             ipNd
-                .group(ipNdGroup)
+                .group(ipGroup)
                 .valueAccessor(function (d) {
                     return Object.keys(d).length;
                 })
@@ -378,7 +380,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             ipNd.render();
 
             // donors
-            var donorNdGroup = ndx.groupAll().reduce(
+            var donorGroup = ndx.groupAll().reduce(
                 function (p, v) { //add
                     if (p[v.Donor]) {
                         p[v.Donor]++;
@@ -401,7 +403,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
 
             donorNd
-                .group(donorNdGroup)
+                .group(donorGroup)
                 .valueAccessor(function (d) {
                     return Object.keys(d).length;
                 })
@@ -409,12 +411,25 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .transitionDuration(0);
             donorNd.render();
 
-            var individualNdGroup = ndx.groupAll().reduceSum(function (d) {
+            var projectGroup = ndx.groupAll().reduceCount(function (d) {
+                return d.Id;
+            });
+
+            projectNd
+                .group(projectGroup)
+                .valueAccessor(function (d) {
+                    return d;
+                })
+                .formatNumber(d3.format(","));
+
+            projectNd.render();
+
+            var individualGroup = ndx.groupAll().reduceSum(function (d) {
                 return d.Individuals;
             });
 
             individualNd
-                .group(individualNdGroup)
+                .group(individualGroup)
                 .valueAccessor(function (d) {
                     return d;
                 })
@@ -422,12 +437,12 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             individualNd.render();
 
-            var householdNdGroup = ndx.groupAll().reduceSum(function (d) {
+            var householdGroup = ndx.groupAll().reduceSum(function (d) {
                 return d.Households;
             });
 
             householdNd
-                .group(householdNdGroup)
+                .group(householdGroup)
                 .valueAccessor(function (d) {
                     return d;
                 })
@@ -435,10 +450,10 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             householdNd.render();
 
-            // var targetNdGroup = ndx.groupAll().reduceSum(function (d) {
+            // var targetGroup = ndx.groupAll().reduceSum(function (d) {
             //     return d.Target;
             // });
-            var targetNdGroup = ndx.groupAll().reduce(
+            var targetGroup = ndx.groupAll().reduce(
                 function (p, v) {
                     p.Target = +v.Target;
                     return p;
@@ -453,7 +468,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
 
             targetNd
-                .group(targetNdGroup)
+                .group(targetGroup)
                 .valueAccessor(function (d) {
                     return d.Target;
                 })
@@ -462,7 +477,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             targetNd.render();
 
-            var pinNdGroup = ndx.groupAll().reduce(
+            var pinGroup = ndx.groupAll().reduce(
                 function (p, v) {
                     p.PIN = +v.PIN;
                     return p;
@@ -477,7 +492,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
 
             pinNd
-                .group(pinNdGroup)
+                .group(pinGroup)
                 .valueAccessor(function (d) {
                     return d.PIN;
                 })
@@ -663,11 +678,11 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .label(function (d) {
                     // var k = d.key == "Known" ? "KN" : "UNK"
                     // return k;
-                    return d.key
+                    return d.key;
                 })
                 .title(function (d) {
                     return ""
-                    // return d.key + ": " + numKFormat(d.value)
+                    // return d.key + ": " + numKFormat(d.value);
                 })
                 .ordinalColors(['#8b2b2d','#a55a5b', '#bf898a', '#d8b8b9'])
                 .controlsUseVisibility(true)
@@ -682,11 +697,11 @@ d3.csv('data/dataset.csv', function (error, data) {
                     chart.selectAll(".pie-slice").on('mouseover', pieTip.show)
                     .on('mouseout', pieTip.hide);
                 });
-            pcmPie.renderlet(function(chart){
-                chart.selectAll('text.pie-slice').text( function(d) {
-                return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
-                })
-            })
+            // pcmPie.renderlet(function(chart){
+            //     chart.selectAll('text.pie-slice').text( function(d) {
+            //     return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
+            //     })
+            // })
 
             pcmPie.render();
 
