@@ -241,7 +241,7 @@ function initFilters() {
         filter(statusRow, 16);
         filter(yearBar, 17);
     } else {
-        // assign default year
+        // assign default status
         statusRow.filter(statusFilter);
         // assign default year
         yearBar.filter(yearFilter);
@@ -261,13 +261,11 @@ function arr_max_val(t) {
     }, 0);
 }
 // returns extents (min and max values) of CSV 'Year' field
-function rangeDate() {
-    // var yr = d3.max(data, function (d) {
-    //     return +d.LastUpdated;
-    // });
-    // var yr = 2019;
-    var y = dateParse(lastUpdated,4).getFullYear();
+function rangeDate(y) {
+    // y = Number(y)
+    // var y = dateParse(lastUpdated,4).getFullYear();
     var rng = [new Date(y, 0, 1), new Date(y + 1, 0, 31)];
+
     return rng;
 }
 // loads CSV file based the button clicked
@@ -299,7 +297,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 d.EndMonth = dateParse(d.EndMonth);
                 d.Month = d3.timeMonth(d.EndMonth);
                 // latest year
-                if (yearFilter < d.ReportYear) yearFilter = d.ReportYear;
+                if (yearFilter < +d.ReportYear) yearFilter = +d.ReportYear;
                 // last updated date 
                 if (lastUpdated === undefined) lastUpdated = d.LastUpdated
                 lastUpdated = lastUpdated > d.LastUpdated ? lastUpdated : d.LastUpdated;
@@ -684,6 +682,11 @@ d3.csv('data/dataset.csv', function (error, data) {
                     chart.selectAll(".pie-slice").on('mouseover', pieTip.show)
                     .on('mouseout', pieTip.hide);
                 });
+            pcmPie.renderlet(function(chart){
+                chart.selectAll('text.pie-slice').text( function(d) {
+                return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
+                })
+            })
 
             pcmPie.render();
 
@@ -740,7 +743,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             ruralUrbanRow
                 .width(110)
-                .height(120)
+                .height(110)
                 .margins({ top: 5, right: 0, bottom: 20, left: 5 })
                 .dimension(ruralUrbanDim)
                 .group(ruralUrbanGroup)
@@ -896,7 +899,7 @@ d3.csv('data/dataset.csv', function (error, data) {
     
             // Configure displacement year bar chart parameters
             yearBar
-                .height(120)
+                .height(110)
                 .width(100)
                 .margins({ top: 10, right: 10, bottom: 20, left: 35 })
                 .dimension(yearDim)
@@ -912,8 +915,9 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .on("filtered", getFiltersValues)
                 .on("filtered", function(){
                     var filter = yearBar.filters()[0];
+
                     // get filtered year 
-                    filter = filter == undefined ? yearFilter : filter;
+                    filter = filter == undefined ? yearFilter : Number(filter);
                     
                     // reset min and max date based on filtered year
                     monthBar.x(d3.scaleTime().domain(rangeDate(filter)));
@@ -959,10 +963,10 @@ d3.csv('data/dataset.csv', function (error, data) {
             monthGroup = monthDim.group().reduceSum(function (d) {
                 return d.Individuals;
             });
-
+            
             monthBar
                 .width(300)
-                .height(120)
+                .height(110)
                 .margins({ top: 10, right: -17, bottom: 20, left: 30 })
                 .dimension(monthDim)
                 .group(monthGroup)
@@ -975,7 +979,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 //.centerBar(true)
                 .renderHorizontalGridLines(true)
                 .controlsUseVisibility(true)
-                .x(d3.scaleTime().domain(rangeDate()))
+                .x(d3.scaleTime().domain(rangeDate(yearFilter)))
                 .xUnits(d3.timeMonths)
                 .round(d3.timeMonth)
                 .brushOn(true)
@@ -995,7 +999,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             monthBar.on('renderlet', function (chart) {
                 chart.selectAll("g.axis.x")
-                    .attr('transform', "translate(42,100)");
+                    .attr('transform', "translate(42,90)");
                 chart.selectAll("g.chart-body")
                     .attr('transform', "translate(10,10)");
             });
@@ -1121,7 +1125,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             benefBar
                 .width(200)
-                .height(120)
+                .height(110)
                 .margins({ top: 10, right: 30, bottom: 20, left: 40 })
                 .dimension(benefDim)
                 .group(benefGroup, "Individuals")

@@ -11,18 +11,23 @@ hr {
     color: #d3e4facc;
 }
 
-h6 span {
+/* h6 span {
     margin-top: .25rem;
-    font-size: 11px;
+    font-size: .7rem;
     margin-bottom: 0rem;
     
+} */
+
+span {
+    margin: 0;
+    padding: 0;
 }
 
 h5 { 
     /* font-weight: bold; */
     margin-top: 0px;
     margin-bottom: 0px; 
-    font-size: 1.05rem;        
+    font-size: 1.25rem;        
 }
 
 .about h5, .status h5 {
@@ -32,9 +37,9 @@ h5 {
 }
 
 h6{
-    margin-top: .25rem;
-    margin-bottom: .10rem; 
-    font-size: .7rem;
+    margin-top: .2rem;
+    margin-bottom: .05rem; 
+    font-size: .8rem;
     font-style: normal;
     /* color: gray; */
 
@@ -53,9 +58,11 @@ li{
 #dc-partner-nd .number-display, 
 #dc-ip-nd .number-display
 {
-    font-size: 0.7rem;
-    /* font-weight: bold; */
-    color: #984244;
+    font-size: .8rem;
+    font-weight: bold;
+    /* color: #984244; */
+    margin: 0;
+    padding: 0;
 }
 
 .normal {

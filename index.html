@@ -35,7 +35,7 @@
                 <div class="col-sm-auto align-self-start back">
                     <!-- <a name="top"></a> -->
 
-                    <img src="img/Shelter-cluster-logo.jpg" height="40px" alt="UNHCR">
+                    <img src="img/Shelter-cluster-logo.jpg" height="50px" alt="UNHCR">
 
                 </div>
 
@@ -131,7 +131,7 @@
                                     RURAL/URBAN
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click bar(s) to select and filter by">
-                                    </a>
+                                    </a><br>
                                     <a href="javascript:ruralUrbanRow.filterAll();dc.redrawAll()" class="reset"
                                         style="visibility: hidden">
                                         Clear
@@ -143,10 +143,10 @@
                             <div id="dc-year-bar">
                                 <h6>
                                     BY YEAR
-                                    <span class="filter"></span>
+                                    <strong><span class="filter"></span></strong>
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click bar to single-select and filter by, multi-select is not possible">
-                                    </a>
+                                    </a><br><br>
 
                                 </h6>
                             </div>
@@ -155,10 +155,10 @@
                             <div id="dc-month-bar">
                                 <h6>
                                     BY MONTH
-                                    <span class="filter"></span>
+                                    <strong><span class="filter"></span></strong>
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click and drag (brush) over the bars to filter by month(s)">
-                                    </a>
+                                    </a><br>
                                     <a href="javascript:monthBar.filterAll();dc.redrawAll()" class="reset"
                                         style="visibility: hidden"
                                         title="If in Google Chrome browser, click middle mouse button to Clear.">
@@ -174,7 +174,7 @@
                                     BENEFICIARY TYPE
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click bar(s) to select and filter by">
-                                    </a>
+                                    </a><br>
                                     <a href="javascript:benefBar.filterAll();dc.redrawAll()" class="reset"
                                         style="visibility: hidden">
                                         Clear
@@ -192,7 +192,7 @@
                                     DEMOGRAPHY
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Stacks are not clickable, hover over (mouseover) to view specifics">
-                                    </a>
+                                    </a><br><br>
                                     <!-- <a href="javascript:demoBarStack.filterAll();dc.redrawAll()" 
                                             class="reset" style="visibility: hidden">
                                            Clear
@@ -203,13 +203,15 @@
                         <div class="col-sm-4">
                             <div id="dc-pcm-pie">
                                 <h6 style="padding-bottom: .3rem;">
-                                    PCM/PDM
+                                    PCM/PDM  
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click slice(s) to select and filter by">
-                                    </a>
+                                    </a><br>
+                                    CONDUCTED
                                     <a href="javascript:pcmPie.filterAll();dc.redrawAll();" class="reset" style="visibility: hidden">
                                         Clear
                                     </a>
+                                    
                                 </h6>
     
                             </div>
@@ -217,13 +219,15 @@
                         <div class="col-sm-4">
                             <div id="dc-crfm-pie">
                                 <h6 style="padding-bottom: .3rem;">
-                                    CRFM
+                                    CRFM 
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click slice(s) to select and filter by">
                                     </a>
+                                    IMPLEMENTED
                                     <a href="javascript:crfmPie.filterAll();dc.redrawAll();" class="reset" style="visibility: hidden">
                                         Clear
                                     </a>
+                                    
                                 </h6>
     
                             </div>
@@ -281,7 +285,8 @@
                 <div class="col-sm-2">
                     <div id="dc-donor-select">
                         <h6>
-                            <span id="dc-donor-nd"></span> DONORS
+                            <strong><span id="dc-donor-nd"></span> </strong>
+                            DONORS
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                 title="Click on an item(s) in the list to select and filter by">
                             </a>
@@ -295,7 +300,8 @@
                 <div class="col-sm-2">
                     <div id="dc-organ-select">
                         <h6>
-                            <span id="dc-partner-nd"></span> PARTNERS
+                            <strong><span id="dc-partner-nd"></span></strong> 
+                            PARTNERS 
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                 title="Click on an item(s) in the list to select and filter by">
                             </a>
@@ -340,7 +346,7 @@
                 <div class="col-sm-2">
                     <div id="dc-location-select">
                         <h6>
-                            SPECIFIC LOCATION
+                            IDP LOCATIONS
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                 title="Click on an item(s) in the list to select and filter by">
                             </a>
@@ -355,9 +361,8 @@
                 <div class="col-sm-2">
                     <div id="dc-partner-select">
                         <h6>
-
-                            <span id="dc-ip-nd"></span> IMPLEMENT. PARTNERS
-
+                            <strong><span id="dc-ip-nd"></span></strong>
+                            IPs
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                 title="Click on an item(s) in the list to select and filter by">
                             </a>
