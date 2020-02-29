@@ -455,22 +455,24 @@ d3.csv('data/dataset.csv', function (error, data) {
             // });
             var targetGroup = ndx.groupAll().reduce(
                 function (p, v) {
-                    p.Target = +v.Target;
+                    p.cnt ++;
+                    p.target += +v.Target;
                     return p;
                 },
                 function (p, v) {
-                    p.Target = +v.Target;
+                    p.cnt --
+                    p.target -= +v.Target;
                     return p;
                 },
                 function () {
-                    return { Target:0 };
+                    return { target:0, cnt:0 };
                 }
             );
 
             targetNd
                 .group(targetGroup)
                 .valueAccessor(function (d) {
-                    return d.Target;
+                    return d.target/d.cnt;
                 })
                 .formatNumber(d3.format(".2s"))
                 .transitionDuration(0);
@@ -479,22 +481,24 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             var pinGroup = ndx.groupAll().reduce(
                 function (p, v) {
-                    p.PIN = +v.PIN;
+                    p.cnt ++;
+                    p.pin += +v.PIN;
                     return p;
                 },
                 function (p, v) {
-                    p.PIN = +v.PIN;
+                    p.cnt --;
+                    p.pin -= +v.PIN;
                     return p;
                 },
                 function () {
-                    return { PIN:0 };
+                    return { pin:0, cnt:0 };
                 }
             );
 
             pinNd
                 .group(pinGroup)
                 .valueAccessor(function (d) {
-                    return d.PIN;
+                    return d.pin/d.cnt;
                 })
                 .formatNumber(d3.format(".2s"))
                 .transitionDuration(0);
@@ -1260,7 +1264,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             modalityRow.render();
 
-            dc.renderAll();
+            // dc.renderAll();
 
             initFilters();
 
