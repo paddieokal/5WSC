@@ -23,6 +23,7 @@ var ruralUrbanRow = dc.rowChart("#dc-rural-urban-row");
 var crisisRow = dc.rowChart("#dc-crisis-row");
 var programRow = dc.rowChart("#dc-program-row");
 var statusRow = dc.rowChart("#dc-status-row");
+var programCatRow = dc.rowChart("#dc-program-cat-row");
 var benefBar = dc.barChart("#dc-benef-bar-stack");
 var monthBar = dc.barChart("#dc-month-bar");
 var yearBar = dc.barChart("#dc-year-bar");
@@ -94,6 +95,7 @@ var ndx; // crossfilter global variable
 
 var statusFilter = "Completed"; 
 var yearFilter = 0; 
+var programCatFilter = "SHELTER"; 
 
 
 // URL filters utilities:
@@ -150,6 +152,7 @@ function getFiltersValues() {
         { name: 'crf', value: crfmPie.filters() }, //15
         { name: 'sta', value: statusRow.filters() }, //16
         { name: 'yea', value: yearBar.filters() }, //17
+        { name: 'cat', value: programCatRow.filters() }, //18
 
     ];
     // console.log(filters[23]);
@@ -162,7 +165,7 @@ function initFilters() {
     // regExp accepts special characters
     var parseHash, parsed;
 
-    parseHash = /^#loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pcm=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&crf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&yea=([A-Za-z0-9,_\-\/\s]*)$/;
+    parseHash = /^#loc=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mod=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&par=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&mon=([\d{4}-\d{2}-\d{2},\d{4}-\d{2}-\d{2}]*)&crs=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&bnf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&prg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pbn=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&don=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&reg=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&dis=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&org=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&rub=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&pcm=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&crf=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&sta=([A-Za-z0-9,!@#\$%\^\&*\)\(\/+=._-\s]*)&yea=([A-Za-z0-9,_\-\/\s]*)&cat=yea=([A-Za-z0-9,_\-\/\s]*)$/;
     parsed = parseHash.exec(decodeURIComponent(location.hash));
 
     function filter(chart, rank) {  // for instance chart = sector_chart and rank in URL hash = 1
@@ -175,6 +178,9 @@ function initFilters() {
                 getFiltersValues();
             } else if (rank == 17) {
                 chart.filter(yearFilter);
+                getFiltersValues();
+            } else if (rank == 18) {
+                chart.filter(programCatFilter);
                 getFiltersValues();
             } else {
                 chart.filter(null);
@@ -214,6 +220,12 @@ function initFilters() {
       
             var filter = filterValues[0] == "" ? yearFilter : Number(filterValues[0]);
             chart.filter(filter);
+            getFiltersValues(); 
+        } else if (rank == 18) {
+            var filterValues = parsed[rank].split(",");
+      
+            var filter = filterValues[0] == "" ? programCatFilter : filterValues[0];
+            chart.filter(filter);
             getFiltersValues();        
         } else {
             var filterValues = parsed[rank].split(",");
@@ -242,11 +254,14 @@ function initFilters() {
         filter(crfmPie, 15);
         filter(statusRow, 16);
         filter(yearBar, 17);
+        filter(programCatRow, 18);
     } else {
         // assign default status
         statusRow.filter(statusFilter);
         // assign default year
         yearBar.filter(yearFilter);
+        // assign default programme category
+        programCatRow.filter(programCatFilter);
         getFiltersValues();
     }
 
@@ -1215,8 +1230,8 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             statusRow
                 .width(155)
-                .height(60)
-                .margins({ top: 5, right: 0, bottom: 0, left: 5 })
+                .height(80)
+                .margins({ top: 5, right: 0, bottom: 20, left: 5 })
                 .dimension(statusDim)
                 .group(statusGroup)
                 .ordinalColors(["#b27273"])
@@ -1253,6 +1268,54 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             statusRow.render();
 
+  
+            // programCat row chart
+            var programCatDim = ndx.dimension(function (d) {
+                return d.ProgrammeCategory;
+            });
+            var programCatGroup = programCatDim.group().reduceSum(function (d) {
+                return d.Individuals;
+            });
+            programCatRow
+                .width(155)
+                .height(80)
+                .margins({ top: 5, right: 0, bottom: 20, left: 5 })
+                .dimension(programCatDim)
+                .group(programCatGroup)
+                .ordinalColors(["#b27273"])
+                .on("filtered", getFiltersValues)
+                .on("filtered", function(){
+                    var filter = programCatRow.filters()[0];
+                    filter = filter == undefined ? programCatFilter : filter;
+                  })                
+                .title(function (d) {
+                    // return d.key + ": " + numberFormat(d.value);s
+                    return '';
+                })
+                .controlsUseVisibility(true)
+                .gap(2)
+                .elasticX(true)
+                .xAxis().ticks(3);
+            
+            programCatRow.xAxis().tickFormat(function (v) {
+                    return d3.format(".1s")(v);
+                });
+
+            // single select
+            programCatRow.addFilterHandler(function(filters, filter) {return [filter];}); // this
+            // custom filter handler (no-op)
+            programCatRow.removeFilterHandler(function(filters, filter) {
+                return filters;
+            });
+
+            programCatRow.on('renderlet', function (chart) {
+                chart.selectAll(".row").call(rowTip);
+                chart.selectAll(".row").on('mouseover', rowTip.show)
+                  .on('mouseout', rowTip.hide);
+              });            
+
+            programCatRow.render();
+
             // modality barchart
             var modalityDim = ndx.dimension(function (d) {
                 return d.Modality;
@@ -1265,8 +1328,8 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             modalityRow
                 .width(155)
-                .height(40)
-                .margins({ top: 5, right: 0, bottom: 0, left: 5 })
+                .height(80)
+                .margins({ top: 5, right: 0, bottom: 20, left: 5 })
                 .dimension(modalityDim)
                 .group(modalityGroup)
                 .ordinalColors(["#b27273"])

@@ -255,10 +255,10 @@ footer {
 #dc-ptype-row svg g g.axis { display: none; }
 
 /* hide x axis for project status row chart */
-#dc-status-row svg g g.axis { display: none; }
+/* #dc-status-row svg g g.axis { display: none; } */
 
 /* hide x axis for project modality row chart */
-#dc-modality-row svg g g.axis { display: none; }
+/* #dc-modality-row svg g g.axis { display: none; } */
 
 /* hide x axis for project rural/urban row chart */
 /* #dc-rural-urban-row svg g g.axis { display: none; } */

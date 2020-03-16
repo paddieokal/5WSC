@@ -67,43 +67,49 @@
 
         <section class="home page">
             <div class="row">
-                <div class="col-sm-2">
-                    <h6>
-                        INDIVIDUALS REACHED
-                    </h6>
-                    <div id="dc-individual-nd">
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <h6>HOUSEHOLDS REACHED</h6>
-                    <div id="dc-household-nd">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h6>
+                                INDIVIDUALS REACHED
+                            </h6>
+                            <div id="dc-individual-nd">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <h6>HOUSEHOLDS REACHED</h6>
+                            <div id="dc-household-nd">
+                            </div>
+                        </div>
+        
+                        <div class="col-sm-2">
+                            <h6>TARGETED</h6>
+                            <div id="dc-target-nd">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <h6>PiN</h6>
+                            <div id="dc-pin-nd">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-2">
-                    <h6>TARGETED</h6>
-                    <div id="dc-target-nd">
+                    <h6>
+                        CATEGORY
+                        <a href="#" class='far fa-question-circle' data-toggle="tooltip"
+                                title="Click bar to single-select and filter by, multi-select is not possible">
+                        </a>
+                        <!-- <a href="javascript:statusRow.filterAll();dc.redrawAll()" class="reset"
+                            style="visibility: hidden">
+                            Clear
+                        </a> -->
+                    </h6>
+                    <div id="dc-program-cat-row">
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <h6>PEOPLE-IN-NEED</h6>
-                    <div id="dc-pin-nd">
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div id="dc-modality-row">
-                        <h6>
-                            MODALITY
-                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
-                                title="Click bar(s) to select and filter by">
-                            </a>
-                            <a href="javascript:modalityRow.filterAll();dc.redrawAll()" class="reset"
-                                style="visibility: hidden">
-                                Clear
-                            </a>
-                        </h6>
-                    </div>
-                </div>
+
                 <div class="col-sm-2">
                     <div id="dc-status-row">
                         <h6>
@@ -118,6 +124,20 @@
                         </h6>
                     </div>
 
+                </div>
+                <div class="col-sm-2">
+                    <div id="dc-modality-row">
+                        <h6>
+                            MODALITY
+                            <a href="#" class='far fa-question-circle' data-toggle="tooltip"
+                                title="Click bar(s) to select and filter by">
+                            </a>
+                            <a href="javascript:modalityRow.filterAll();dc.redrawAll()" class="reset"
+                                style="visibility: hidden">
+                                Clear
+                            </a>
+                        </h6>
+                    </div>
                 </div>
             </div>
             <!-- /key figures and row charts -->
@@ -394,9 +414,13 @@
                     <!-- <strong>PIDP - </strong>&nbsp;Protracted IDPs -->
                     PIDP - Protracted IDPs
                 </div>
-                <div class="col-sm-6 fade">
+                <div class="col-sm-2 fade">
                     <!-- <strong>RRET - </strong>&nbsp;Refugee Returnees -->
                     RRET - Refugee Returnees
+                </div>
+                <div class="col-sm-4 fade">
+                    <!-- <strong>PiN - </strong>&nbsp;People in Need -->
+                    PiN - People in Need
                 </div>
             </div>
             <hr>
