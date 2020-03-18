@@ -24,18 +24,15 @@
         <header>
             <div class="row">
 
-                <div class="col-sm-auto align-self-start right-padding">
+                <div class="col-lg-9">
                     <h5 class="normal">SOMALIA</h5>
                     <h5 class="float-left">SHELTER CLUSTER 5W (Who's doing What, Where, When and for Whom)</h5>
                 </div>
 
-                <div class="col-sm">
-
-                </div>
-                <div class="col-sm-auto align-self-start back">
+                <div class="col-lg-3">
                     <!-- <a name="top"></a> -->
 
-                    <img src="img/Shelter-cluster-logo.jpg" height="50px" alt="UNHCR">
+                    <img src="img/Shelter-cluster-logo.jpg" height="50px" alt="UNHCR" style="float: right">
 
                 </div>
 
@@ -46,19 +43,19 @@
         <hr style="margin-bottom: .0rem;">
 
         <div class="row sub-header">
-            <div class="col-sm-2">
+            <div class="col-lg-2">
                 <span id="last-updated"></h6>
             </div>
-            <div class="col-sm">
+            <div class="col-lg-9">
 
             </div>
-            <div class="col-sm-1">
+            <div class="col-lg-1">
                 <!-- <h6>&nbsp;</h6> -->
 
                 <a class="btn btn-link btn-sm" href="javascript:dc.filterAll(); initFilters(); dc.redrawAll();"
                     style="float: right;">
                     <!-- <a href="javascript:dc.filterAll(); dc.renderAll();"> -->
-                    Clear All
+                        <h6 class="btn btn-secondary">Clear All</h6>
                 </a>
 
             </div>
@@ -67,27 +64,27 @@
 
         <section class="home page">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-lg-4">
                             <h6>
                                 INDIVIDUALS REACHED
                             </h6>
                             <div id="dc-individual-nd">
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-lg-4">
                             <h6>HOUSEHOLDS REACHED</h6>
                             <div id="dc-household-nd">
                             </div>
                         </div>
         
-                        <div class="col-sm-2">
+                        <div class="col-lg-2">
                             <h6>TARGETED</h6>
                             <div id="dc-target-nd">
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-lg-2">
                             <h6>PiN</h6>
                             <div id="dc-pin-nd">
                             </div>
@@ -95,7 +92,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <h6>
                         CATEGORY
                         <a href="#" class='far fa-question-circle' data-toggle="tooltip"
@@ -110,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div id="dc-status-row">
                         <h6>
                             STATUS
@@ -125,7 +122,7 @@
                     </div>
 
                 </div>
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div id="dc-modality-row">
                         <h6>
                             MODALITY
@@ -143,9 +140,9 @@
             <!-- /key figures and row charts -->
 
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-lg-8">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-lg-2">
                             <div id="dc-rural-urban-row">
                                 <h6>
                                     RURAL/URBAN
@@ -159,7 +156,7 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-lg-2">
                             <div id="dc-year-bar">
                                 <h6>
                                     BY YEAR
@@ -171,7 +168,7 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-lg-5">
                             <div id="dc-month-bar">
                                 <h6>
                                     BY MONTH
@@ -187,7 +184,7 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-lg-3">
                             <div id="dc-benef-bar-stack" style="float: right;">
                                 <!-- <div id="dc-benef-bar-stack"> -->
                                 <h6>
@@ -204,9 +201,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-4">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-lg-4">
                             <div id="dc-demo-bar-stack">
                                 <h6>
                                     DEMOGRAPHY
@@ -220,14 +217,14 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-lg-4">
                             <div id="dc-pcm-pie">
                                 <h6 style="padding-bottom: .3rem;">
-                                    PCM/PDM  
+                                    PCM/PDM CONDUCTED
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click slice(s) to select and filter by">
-                                    </a><br>
-                                    CONDUCTED
+                                    </a>
+                                    
                                     <a href="javascript:pcmPie.filterAll();dc.redrawAll();" class="reset" style="visibility: hidden">
                                         Clear
                                     </a>
@@ -236,14 +233,14 @@
     
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-lg-4">
                             <div id="dc-crfm-pie">
                                 <h6 style="padding-bottom: .3rem;">
-                                    CRFM 
+                                    CRFM IMPLEMENTED
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click slice(s) to select and filter by">
                                     </a>
-                                    IMPLEMENTED
+                                    
                                     <a href="javascript:crfmPie.filterAll();dc.redrawAll();" class="reset" style="visibility: hidden">
                                         Clear
                                     </a>
@@ -258,7 +255,7 @@
             <!-- /bar charts -->
 
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div id="dc-crisis-row">
                         <h6>
                             CRISIS
@@ -273,7 +270,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div id="dc-program-row">
                         <h6>
                             PROGRAMME
@@ -287,7 +284,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-4">
                     <div id="dc-program-benef-heat" style="float: right;">
                         <h6>
                             PROGRAMME VS BENEFICIARY TYPE
@@ -302,7 +299,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div id="dc-donor-select">
                         <h6>
                             <strong><span id="dc-donor-nd"></span> </strong>
@@ -317,7 +314,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div id="dc-organ-select">
                         <h6>
                             <strong><span id="dc-partner-nd"></span></strong> 
@@ -335,7 +332,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-lg-4">
                     <div id="dc-region-map">
                         <h6>
                             REGION MAP
@@ -349,7 +346,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-4">
                     <div id="dc-district-map">
                         <h6>
                             DISTRICT MAP
@@ -363,7 +360,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div id="dc-location-select">
                         <h6>
                             IDP SITES
@@ -378,7 +375,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div id="dc-partner-select">
                         <h6>
                             <strong><span id="dc-ip-nd"></span></strong>
@@ -402,40 +399,40 @@
         <!-- /home -->
         <footer style="margin-top: 0;">
             <div class="row">
-                <div class="col-sm-2 fade">
+                <div class="col-lg-2 fade">
                     <strong>Key:</strong>&nbsp;
                     HOST - Host Community
                 </div>
-                <div class="col-sm-2 fade">
+                <div class="col-lg-2 fade">
                     <!-- <strong>NIDP- Newly Displaced -->
                     NIDP - Newly Displaced
                 </div>
-                <div class="col-sm-2 fade">
+                <div class="col-lg-2 fade">
                     <!-- <strong>PIDP - </strong>&nbsp;Protracted IDPs -->
                     PIDP - Protracted IDPs
                 </div>
-                <div class="col-sm-2 fade">
+                <div class="col-lg-2 fade">
                     <!-- <strong>RRET - </strong>&nbsp;Refugee Returnees -->
                     RRET - Refugee Returnees
                 </div>
-                <div class="col-sm-4 fade">
+                <div class="col-lg-4 fade">
                     <!-- <strong>PiN - </strong>&nbsp;People in Need -->
                     PiN - People in Need
                 </div>
             </div>
             <hr>
             <div class="row">
-                <div class="col-sm-4 fade">
+                <div class="col-lg-4 fade">
                     <span>
                         <strong>Source:</strong>&nbsp;Shelter Cluster, Somalia
                     </span>
                 </div>
-                <div class="col-sm-3 fade">
+                <div class="col-lg-3 fade">
                     <span style="float: right">
                         <strong>Author:</strong>&nbsp;UNHCR, Somalia
                     </span>
                 </div>
-                <div class="col-sm-5 fade">
+                <div class="col-lg-5 fade">
                     <span style="float: right">
                         <strong>Feedback:</strong>&nbsp;
                         Padmore Okal, okal@unhcr.org

@@ -805,7 +805,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             ruralUrbanRow
-                .width(110)
+                .width(100)
                 .height(110)
                 .margins({ top: 5, right: 0, bottom: 20, left: 5 })
                 .dimension(ruralUrbanDim)
@@ -879,7 +879,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 return d.Individuals;
             });
             programRow
-                .width(210)
+                .width(200)
                 .height(190)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(programDim)
@@ -1028,7 +1028,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             
             monthBar
-                .width(300)
+                .width(290)
                 .height(110)
                 .margins({ top: 10, right: -17, bottom: 20, left: 30 })
                 .dimension(monthDim)
