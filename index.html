@@ -85,14 +85,15 @@
                             </div>
                         </div>
                         <div class="col-lg-2">
-                            <h6>PiN</h6>
-                            <div id="dc-pin-nd">
+                            <div id="dc-pin-nd" style="float: right;">
+                                <h6>PiN</h6>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-2">
+                    <div id="dc-program-cat-row" style="float: right;">
                     <h6>
                         CATEGORY
                         <a href="#" class='far fa-question-circle' data-toggle="tooltip"
@@ -103,12 +104,12 @@
                             Clear
                         </a> -->
                     </h6>
-                    <div id="dc-program-cat-row">
+                    
                     </div>
                 </div>
 
                 <div class="col-lg-2">
-                    <div id="dc-status-row">
+                    <div id="dc-status-row" style="float: right;">
                         <h6>
                             STATUS
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
@@ -123,7 +124,7 @@
 
                 </div>
                 <div class="col-lg-2">
-                    <div id="dc-modality-row">
+                    <div id="dc-modality-row" style="float: right;">
                         <h6>
                             MODALITY
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
@@ -204,7 +205,7 @@
                 <div class="col-lg-4">
                     <div class="row">
                         <div class="col-lg-4">
-                            <div id="dc-demo-bar-stack">
+                            <div id="dc-demo-bar-stack" style="float: right;">
                                 <h6>
                                     DEMOGRAPHY
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
@@ -218,13 +219,13 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div id="dc-pcm-pie">
+                            <div id="dc-pcm-pie" style="float: right;">
                                 <h6 style="padding-bottom: .3rem;">
-                                    PCM/PDM CONDUCTED
+                                    PCM/PDM
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click slice(s) to select and filter by">
                                     </a>
-                                    
+                                    <br>
                                     <a href="javascript:pcmPie.filterAll();dc.redrawAll();" class="reset" style="visibility: hidden">
                                         Clear
                                     </a>
@@ -234,13 +235,13 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div id="dc-crfm-pie">
+                            <div id="dc-crfm-pie" style="float: right;">
                                 <h6 style="padding-bottom: .3rem;">
-                                    CRFM IMPLEMENTED
+                                    CRFM
                                     <a href="#" class='far fa-question-circle' data-toggle="tooltip"
                                         title="Click slice(s) to select and filter by">
                                     </a>
-                                    
+                                    <br>
                                     <a href="javascript:crfmPie.filterAll();dc.redrawAll();" class="reset" style="visibility: hidden">
                                         Clear
                                     </a>
@@ -300,7 +301,7 @@
                 </div>
 
                 <div class="col-lg-2">
-                    <div id="dc-donor-select">
+                    <div id="dc-donor-select" style="float: right;">
                         <h6>
                             <strong><span id="dc-donor-nd"></span> </strong>
                             DONORS
@@ -315,7 +316,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <div id="dc-organ-select">
+                    <div id="dc-organ-select" style="float: right;">
                         <h6>
                             <strong><span id="dc-partner-nd"></span></strong> 
                             PARTNERS 
@@ -361,7 +362,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <div id="dc-location-select">
+                    <div id="dc-location-select" style="float: right;">
                         <h6>
                             IDP SITES
                             <a href="#" class='far fa-question-circle' data-toggle="tooltip"
@@ -376,7 +377,7 @@
                 </div>
 
                 <div class="col-lg-2">
-                    <div id="dc-partner-select">
+                    <div id="dc-partner-select" style="float: right;">
                         <h6>
                             <strong><span id="dc-ip-nd"></span></strong>
                             IPs
@@ -398,26 +399,20 @@
         </section>
         <!-- /home -->
         <footer style="margin-top: 0;">
-            <div class="row">
-                <div class="col-lg-2 fade">
+            <div class="row fade">
+                <!-- <div class="col-lg-1">
                     <strong>Key:</strong>&nbsp;
-                    HOST - Host Community
-                </div>
-                <div class="col-lg-2 fade">
-                    <!-- <strong>NIDP- Newly Displaced -->
-                    NIDP - Newly Displaced
-                </div>
-                <div class="col-lg-2 fade">
-                    <!-- <strong>PIDP - </strong>&nbsp;Protracted IDPs -->
-                    PIDP - Protracted IDPs
-                </div>
-                <div class="col-lg-2 fade">
-                    <!-- <strong>RRET - </strong>&nbsp;Refugee Returnees -->
-                    RRET - Refugee Returnees
-                </div>
-                <div class="col-lg-4 fade">
-                    <!-- <strong>PiN - </strong>&nbsp;People in Need -->
-                    PiN - People in Need
+                </div> -->
+                <div class="col-lg-12">
+                    <strong>HOST</strong> - Host Community | 
+                    <strong>NIDP</strong> - Newly Displaced | 
+                    <strong>PIDP</strong> - Protracted IDPs | 
+                    <strong>RRET</strong> - Refugee Returnees | 
+                    <strong>PiN</strong> - People in Need | 
+                    <strong>EAPS</strong> - Emergency Assistance Packages | 
+                    <strong>PDM</strong> - Post Distribution Monitoring | 
+                    <strong>PCM</strong> - Post Construction Monitoring | 
+                    <strong>CRFM</strong> - Community Response & Feedback Mechanism
                 </div>
             </div>
             <hr>

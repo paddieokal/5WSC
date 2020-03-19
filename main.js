@@ -843,7 +843,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             crisisRow
-                .width(160)
+                .width(170)
                 .height(190)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(crisisDim)
@@ -879,7 +879,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 return d.Individuals;
             });
             programRow
-                .width(200)
+                .width(190)
                 .height(190)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(programDim)
@@ -915,9 +915,9 @@ d3.csv('data/dataset.csv', function (error, data) {
                 return d.Individuals;
             });
             programBenefHeat
-                .width(345)
+                .width(360)
                 .height(195)
-                .margins({ top: 5, right: 30, bottom: 20, left: 180 })
+                .margins({ top: 5, right: 10, bottom: 20, left: 205 })
                 .dimension(programBenefDim)
                 .group(programBenefGroup)
                 .keyAccessor(function (d) { return d.key[0]; })
@@ -1187,9 +1187,9 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
 
             benefBar
-                .width(200)
+                .width(190)
                 .height(110)
-                .margins({ top: 10, right: 30, bottom: 20, left: 40 })
+                .margins({ top: 10, right: 10, bottom: 20, left: 35 })
                 .dimension(benefDim)
                 .group(benefGroup, "Individuals")
                 .title(function (d) {
