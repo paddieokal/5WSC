@@ -501,5 +501,7 @@ label.form-check-label {
         width: 8.33333333%
     }
 
-    
+    @page {
+        size: auto;
+    }
 }
