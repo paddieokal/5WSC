@@ -844,7 +844,7 @@ d3.csv('data/dataset.csv', function (error, data) {
 
             crisisRow
                 .width(170)
-                .height(190)
+                .height(210)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(crisisDim)
                 .group(crisisGroup)
@@ -880,7 +880,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             programRow
                 .width(190)
-                .height(190)
+                .height(210)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(programDim)
                 .group(programGroup)
@@ -916,7 +916,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             programBenefHeat
                 .width(360)
-                .height(195)
+                .height(215)
                 .margins({ top: 5, right: 10, bottom: 20, left: 205 })
                 .dimension(programBenefDim)
                 .group(programBenefGroup)
