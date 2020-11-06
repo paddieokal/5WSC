@@ -649,9 +649,9 @@ d3.csv('data/dataset.csv', function (error, data) {
                 }
             );
             demoBarStack
-                .width(100)
-                .height(120)
-                .margins({ top: 7, right: 5, bottom:20, left: 35 })
+                .width(160)
+                .height(220)
+                .margins({ top: 10, right: 5, bottom:20, left: 80 })
                 .dimension(demoDim)
                 .group(demoGroup, "Girls")
                 .valueAccessor(function (d) {
@@ -805,9 +805,9 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             ruralUrbanRow
-                .width(100)
+                .width(170)
                 .height(110)
-                .margins({ top: 5, right: 0, bottom: 20, left: 5 })
+                .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(ruralUrbanDim)
                 .group(ruralUrbanGroup)
                 .ordinalColors(["#b27273"])
@@ -843,7 +843,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             crisisRow
-                .width(170)
+                .width(240)
                 .height(210)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(crisisDim)
@@ -879,7 +879,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 return d.Individuals;
             });
             programRow
-                .width(190)
+                .width(240)
                 .height(210)
                 .margins({ top: 5, right: 10, bottom: 20, left: 5 })
                 .dimension(programDim)
@@ -963,7 +963,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             // Configure displacement year bar chart parameters
             yearBar
                 .height(110)
-                .width(100)
+                .width(110)
                 .margins({ top: 10, right: 10, bottom: 20, left: 35 })
                 .dimension(yearDim)
                 .group(yearGroup, "Year")
@@ -1028,7 +1028,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
             
             monthBar
-                .width(290)
+                .width(300)
                 .height(110)
                 .margins({ top: 10, right: -17, bottom: 20, left: 30 })
                 .dimension(monthDim)
@@ -1187,7 +1187,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             );
 
             benefBar
-                .width(190)
+                .width(240)
                 .height(110)
                 .margins({ top: 10, right: 10, bottom: 20, left: 35 })
                 .dimension(benefDim)
@@ -1207,7 +1207,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                     return d3.format(".1s")(v);
                 });
 
-            benefBar.yAxis().ticks(4);
+            benefBar.yAxis().ticks(5);
 
             benefBar.on('renderlet', function (chart) {
               chart.selectAll('rect')
