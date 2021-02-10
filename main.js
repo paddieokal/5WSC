@@ -963,8 +963,8 @@ d3.csv('data/dataset.csv', function (error, data) {
             // Configure displacement year bar chart parameters
             yearBar
                 .height(110)
-                .width(210)
-                .margins({ top: 10, right: 10, bottom: 20, left: 35 })
+                .width(170)
+                .margins({ top: 10, right: 10, bottom: 20, left: 10 })
                 .dimension(yearDim)
                 .group(yearGroup, "Year")
                 .gap(1)
