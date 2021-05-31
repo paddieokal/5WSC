@@ -237,7 +237,7 @@ footer {
 } */
 #dc-partner-select .dc-select-menu[multiple]{
     width: 160px;
-    height: 340px;
+    height: 205px;
     margin-top: 5px;
 }
 #dc-organ-select .dc-select-menu[multiple]{
@@ -247,7 +247,7 @@ footer {
 }
 #dc-donor-select .dc-select-menu[multiple]{
     width: 160px;
-    height: 205px;
+    height: 340px;
     margin-top: 5px;
 }
 #dc-location-select .dc-select-menu[multiple]{
