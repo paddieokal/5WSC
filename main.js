@@ -1000,7 +1000,7 @@ d3.csv('data/dataset.csv', function (error, data) {
             });
 
             // single select
-            yearBar.addFilterHandler(function(filters, filter) {return [filter];}); // this
+           // yearBar.addFilterHandler(function(filters, filter) {return [filter];}); // this
             // custom filter handler (no-op)
             yearBar.removeFilterHandler(function(filters, filter) {
                 return filters;
