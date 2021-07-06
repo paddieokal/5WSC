@@ -973,7 +973,7 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .controlsUseVisibility(true)
                 .x(d3.scaleBand())
                 .xUnits(dc.units.ordinal)
-                .brushOn(false)
+                .brushOn(true)
                 .elasticY(true)
                 .on("filtered", getFiltersValues)
                 .on("filtered", function(){
