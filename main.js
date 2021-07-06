@@ -138,7 +138,7 @@ function getFiltersValues() {
         { name: 'loc', value: locationSelect.filters() }, //1
         { name: 'mod', value: modalityRow.filters() }, // 2
         { name: 'par', value: partnerSelect.filters() }, //3
-        { name: 'mon', value: resetFilter(monthBar.filters()) }, //4
+        { name: 'mon', value: monthBar.filters() }, //4
         { name: 'crs', value: crisisRow.filters() }, //5
         { name: 'bnf', value: benefBar.filters() }, //6
         { name: 'prg', value: programRow.filters() }, //7
