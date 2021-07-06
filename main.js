@@ -976,15 +976,15 @@ d3.csv('data/dataset.csv', function (error, data) {
                 .brushOn(true)
                 .elasticY(true)
                 .on("filtered", getFiltersValues)
-               // .on("filtered", function(){
-                //    var filter = yearBar.filters()[0];
+                .on("filtered", function(){
+                    var filter = yearBar.filters()[0];
 
                     // get filtered year 
-             //       filter = filter == undefined ? yearFilter : Number(filter);
+                    filter = filter == undefined ? yearFilter : Number(filter);
                     
                     // reset min and max date based on filtered year
-              //      monthBar.x(d3.scaleTime().domain(rangeDate(filter)));
-          //      })
+                    monthBar.x(d3.scaleTime().domain(rangeDate(filter)));
+                })
                 .title(function (d) {
                     // return d3.format(",")(d.value);
                     return '';
